@@ -1,12 +1,29 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { fetchList } from '../redux/actions';
+import { List } from 'semantic-ui-react';
+import MovieItem from '../component/MovieItem';
+import {
+  fetchList,
+  deleteMovieFromList,
+  fetchUpcomingMovies,
+} from '../redux/actions';
 
+/**
+ * List of user movies.
+ *
+ * @class      UserMovieList (name)
+ */
 class UserMovieList extends React.Component {
   componentDidMount() {
     const { dispatch } = this.props;
     dispatch(fetchList());
+    dispatch(fetchUpcomingMovies(1));
   }
+
+  removeMovie = docId => {
+    const { dispatch } = this.props;
+    dispatch(deleteMovieFromList(docId));
+  };
 
   render() {
     const { isFetching, list } = this.props.movieList;
@@ -15,9 +32,17 @@ class UserMovieList extends React.Component {
       return <p>Fetching...</p>;
     }
 
-    console.log(list);
-    const listOfMovies = list.map(i => <li>{i.title}</li>);
-    return <ul>{listOfMovies}</ul>;
+    return (
+      <List divided relaxed>
+        {list.map(movie => (
+          <MovieItem
+            key={movie.docId}
+            {...movie}
+            onMovieRemove={() => this.removeMovie(movie.docId)}
+          />
+        ))}
+      </List>
+    );
   }
 } // UserMovieList
 

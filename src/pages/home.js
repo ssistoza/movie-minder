@@ -1,8 +1,8 @@
 import React from 'react';
 import { Grid, Segment } from 'semantic-ui-react';
-import SavedList from '../component/SavedList';
 import UpcomingList from '../component/UpcomingList';
 import PageTitle from '../component/PageTitle';
+import UserMovieList from '../container/UserMovieList';
 
 class Home extends React.Component {
   render() {
@@ -12,7 +12,7 @@ class Home extends React.Component {
         <Grid.Row>
           <Grid.Column width={8}>
             <Segment>
-              <SavedList />
+              <UserMovieList />
             </Segment>
           </Grid.Column>
           <Grid.Column width={8}>
