@@ -1,4 +1,6 @@
 import {
+  ADD_TO_LIST,
+  ADDED_TO_LIST,
   REQUEST_LIST,
   RECEIVE_LIST,
   REMOVE_FROM_LIST,
@@ -31,6 +33,18 @@ export const movieList = (state = { list: [] }, action) => {
       return Object.assign({}, state, {
         list,
       });
+    }
+    case ADD_TO_LIST: {
+      // Optimistic ==> At this time no-idea of docId.
+      const list = [...state.list, { docId: 'awaiting', ...action.data }];
+      return Object.assign({}, state, { list });
+    }
+    case ADDED_TO_LIST: {
+      // Update docId.
+      const list = state.list.filter(movie => movie.docId !== 'awaiting');
+      let item = state.list.find(movie => movie.docId === 'awaiting');
+      item.docId = action.data;
+      return Object.assign({}, state, { list: [...list, item] });
     }
     default:
       return state;

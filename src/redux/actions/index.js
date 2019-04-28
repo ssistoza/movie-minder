@@ -1,19 +1,34 @@
-import { REQUEST_LIST, RECEIVE_LIST } from './List';
-import { fetchUpcomingMovies } from './Movie';
 import {
-  fetchList,
-  deleteMovieFromList,
+  ADD_TO_LIST,
+  ADDED_TO_LIST,
+  REQUEST_LIST,
+  RECEIVE_LIST,
   REMOVE_FROM_LIST,
   REMOVED_FROM_LIST,
 } from './List';
-import { REQUEST_MOVIES, RECEIVE_MOVIES } from './Movie';
+import { addMovieToList, fetchList, deleteMovieFromList } from './List';
+import {
+  REQUEST_MOVIES,
+  RECEIVE_MOVIES,
+  SET_MOVIES_VISIBILITY,
+  MoviesVisibilityFilter,
+} from './Movie';
+import { fetchMovies, setMovieVisibility } from './Movie';
 
-// action types
+/* Action Types */
 export { REQUEST_MOVIES, RECEIVE_MOVIES };
-export { fetchUpcomingMovies };
-
+export { ADD_TO_LIST, ADDED_TO_LIST };
 export { REQUEST_LIST, RECEIVE_LIST };
 export { REMOVE_FROM_LIST, REMOVED_FROM_LIST };
+export { SET_MOVIES_VISIBILITY, MoviesVisibilityFilter };
 
-// thunk actions
-export { fetchList, deleteMovieFromList };
+/* Thunk actions */
+// Create
+export { addMovieToList };
+// Retrieve
+export { fetchList, fetchMovies };
+// Update
+// Delete
+export { deleteMovieFromList };
+// Custom
+export { setMovieVisibility };

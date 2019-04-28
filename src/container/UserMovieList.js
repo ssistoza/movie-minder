@@ -17,7 +17,6 @@ class UserMovieList extends React.Component {
   componentDidMount() {
     const { dispatch } = this.props;
     dispatch(fetchList());
-    dispatch(fetchUpcomingMovies(1));
   }
 
   removeMovie = docId => {

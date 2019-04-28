@@ -1,7 +1,7 @@
 import React from 'react';
 import { Grid, Segment } from 'semantic-ui-react';
-import UpcomingList from '../component/UpcomingList';
 import PageTitle from '../component/PageTitle';
+import UpcomingMovieList from '../container/UpcomingMovieList';
 import UserMovieList from '../container/UserMovieList';
 
 class Home extends React.Component {
@@ -17,7 +17,7 @@ class Home extends React.Component {
           </Grid.Column>
           <Grid.Column width={8}>
             <Segment>
-              <UpcomingList />
+              <UpcomingMovieList />
             </Segment>
           </Grid.Column>
         </Grid.Row>

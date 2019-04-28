@@ -1,5 +1,5 @@
 import React from 'react';
-import { Header, Icon, Image, Menu, Segment, Sidebar } from 'semantic-ui-react';
+import { Icon, Menu, Sidebar } from 'semantic-ui-react';
 
 const SidebarExampleVisible = ({ children }) => (
   <Sidebar.Pushable className="max-stop-overflow">
