@@ -1,5 +1,6 @@
 import React from 'react';
 import { Icon, Menu, Sidebar } from 'semantic-ui-react';
+import ACtivityFeed from './ACtivityFeed';
 
 const SidebarExampleVisible = ({ children }) => (
   <Sidebar.Pushable className="max-stop-overflow">
@@ -28,6 +29,9 @@ const SidebarExampleVisible = ({ children }) => (
         <Icon name="sign-in" />
         Sign In
       </Menu.Item>
+      <div className="activity-feed">
+        <ACtivityFeed />
+      </div>
     </Sidebar>
 
     <Sidebar.Pusher>

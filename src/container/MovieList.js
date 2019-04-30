@@ -2,24 +2,18 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { List } from 'semantic-ui-react';
 import MovieItem from '../component/MovieItem';
-import { fetchMovies, addMovieToList } from '../redux/actions';
+import { fetchUpcomingMovies, addMovieToList } from '../redux/actions';
 
 /**
  * List of user movies.
  *
- * @class      UpcomingMovieList (name)
+ * @class      MovieList (name)
  */
-class UpcomingMovieList extends React.Component {
+class MovieList extends React.Component {
   componentDidMount() {
     const { dispatch } = this.props;
-    dispatch(fetchMovies());
-    this.getMoreMovies();
+    dispatch(fetchUpcomingMovies());
   }
-
-  getMoreMovies = () => {
-    const { dispatch, allMovies } = this.props;
-    dispatch(fetchMovies(allMovies.page + 1));
-  };
 
   addMovie = movie => {
     const { dispatch } = this.props;
@@ -27,13 +21,13 @@ class UpcomingMovieList extends React.Component {
   };
 
   render() {
-    const { isFetching, movies } = this.props.allMovies;
+    const { isFetching, movies } = this.props.upcomingMovies;
 
     if (isFetching) {
       return <p>Fetching...</p>;
     }
 
-    if (movies.length <= 0) {
+    if (!movies) {
       return <p>No Movies!</p>;
     }
 
@@ -49,17 +43,21 @@ class UpcomingMovieList extends React.Component {
       </List>
     );
   }
-} // UpcomingMovieList
+} // MovieList
 
 function mapStateToProps(state) {
-  let allMovies = state.allMovies || {
+  let upcomingMovies = state.upcomingMovies || {
     isFetching: true,
     page: 1,
     movies: [],
   };
-  const movies = allMovies.movies.filter(i => !i.isHidden);
-  allMovies = Object.assign({}, allMovies, { movies });
-  return { allMovies };
+
+  const movies = upcomingMovies.movies.filter(movie => {
+    const today = Date.now();
+    return today < new Date(movie.release_date).getTime() && !movie.isHidden;
+  });
+
+  return { upcomingMovies: { ...upcomingMovies, movies } };
 }
 
-export default connect(mapStateToProps)(UpcomingMovieList);
+export default connect(mapStateToProps)(MovieList);

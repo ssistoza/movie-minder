@@ -13,3 +13,17 @@
   overflow-y: hidden;
   max-height: 100vh;
 }
+
+.white-text {
+  color: white !important;
+}
+
+.activity-feed {
+  position: fixed;
+  bottom: 0;
+  height: 50%;
+}
+
+.feed-format {
+  padding-left: 1rem;
+}

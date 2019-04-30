@@ -29,7 +29,7 @@ export const allMovies = (
         needsFiltering: true,
         isFetching: false,
         lastUpdated: action.received,
-        movies: arrayOfData,
+        movies: [...state.movies, ...arrayOfData],
         page: action.data.page,
         totalPage: action.data.total_page,
       });
@@ -40,7 +40,6 @@ export const allMovies = (
 
       movies = movies.map(i => {
         let upcoming = action.date < new Date(i.release_date).getTime();
-        console.log('upcoming', upcoming);
         if (list.includes(i.id) || !upcoming) {
           return Object.assign({}, i, { isHidden: true });
         }
