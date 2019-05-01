@@ -1,4 +1,6 @@
 import Firebase from '../../firebase';
+import { isUpcomingDate } from '../../helper';
+
 export const REQUEST_MOVIES = 'REQUEST_MOVIES';
 export const RECEIVE_MOVIES = 'RECEIVE_MOVIES';
 
@@ -28,14 +30,29 @@ export const SET_MOVIES_VISIBILITY = 'SET_MOVIES_VISIBILITY';
 export const MoviesVisibilityFilter = {
   SHOW_ALL: 'SHOW_ALL',
   SHOW_UPCOMING: 'SHOW_UPCOMING',
-  SHOW_IN_LIST: 'SHOW_IN_LIST',
-  SHOW_NOT_IN_LIST: 'SHOW_NOT_IN_LIST',
-  SHOW_UPCOMING_NOT_IN_LIST: 'SHOW_UPCOMING_NOT_IN_LIST',
+  SHOW_PAST: 'SHOW_PAST',
 };
 
-export const setMovieVisibility = (visibility, list) => ({
+const visibilitySet = (visibility, list, isUpcoming) => ({
   type: SET_MOVIES_VISIBILITY,
   visibility,
   data: list,
-  date: Date.now(),
+  isUpcoming,
+});
+
+export const setMovieVisibility = (visibility, list) => {
+  return (dispatch, getState) => {
+    const isUpcoming = getState().allMovies.movies.map(movie => ({
+      id: movie.id,
+      isUpcoming: isUpcomingDate(Date.now(), movie.release_date),
+    }));
+
+    dispatch(visibilitySet(visibility, list, isUpcoming));
+  };
+};
+
+export const SET_PAGINATION_PAGE = 'SET_PAGINATION_PAGE';
+export const setPaginationPage = page => ({
+  type: SET_PAGINATION_PAGE,
+  data: page,
 });

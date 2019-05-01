@@ -23,5 +23,17 @@ function formatDate(dateString) {
   return `${MONTH[monthNum]}, ${dateForm.getUTCDate()} ${year}`;
 }
 
-export { formatDate };
+function isUpcomingDate(currentDate, dateToBeChecked) {
+  let upcoming = currentDate < new Date(dateToBeChecked).getTime();
+  return upcoming;
+}
 
+function updateObject(oldObject, newValues) {
+  return Object.assign({}, oldObject, newValues);
+}
+
+function maxPages(number) {
+  return Math.ceil(number / 8);
+}
+
+export { formatDate, updateObject, isUpcomingDate, maxPages };

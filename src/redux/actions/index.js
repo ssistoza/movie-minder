@@ -11,9 +11,10 @@ import {
   REQUEST_MOVIES,
   RECEIVE_MOVIES,
   SET_MOVIES_VISIBILITY,
+  SET_PAGINATION_PAGE,
   MoviesVisibilityFilter,
 } from './Movie';
-import { fetchMovies, setMovieVisibility } from './Movie';
+import { fetchMovies, setMovieVisibility, setPaginationPage } from './Movie';
 
 /* Action Types */
 export { REQUEST_MOVIES, RECEIVE_MOVIES };
@@ -21,8 +22,9 @@ export { ADD_TO_LIST, ADDED_TO_LIST };
 export { REQUEST_LIST, RECEIVE_LIST };
 export { REMOVE_FROM_LIST, REMOVED_FROM_LIST };
 export { SET_MOVIES_VISIBILITY, MoviesVisibilityFilter };
+export { SET_PAGINATION_PAGE };
 
-/* Thunk actions */
+/* Action Creators */
 // Create
 export { addMovieToList };
 // Retrieve
@@ -31,4 +33,4 @@ export { fetchList, fetchMovies };
 // Delete
 export { deleteMovieFromList };
 // Custom
-export { setMovieVisibility };
+export { setMovieVisibility, setPaginationPage };

@@ -30,7 +30,7 @@ export const addMovieToList = newMovie => async (dispatch, getState) => {
   dispatch(addedToList(response.id));
   dispatch(
     setMovieVisibility(
-      MoviesVisibilityFilter.SHOW_UPCOMING_NOT_IN_LIST,
+      MoviesVisibilityFilter.SHOW_ALL,
       getState().movieList.list
     )
   );
@@ -56,7 +56,7 @@ export const fetchList = () => async (dispatch, getState) => {
   dispatch(receiveList(list));
   dispatch(
     setMovieVisibility(
-      MoviesVisibilityFilter.SHOW_UPCOMING_NOT_IN_LIST,
+      MoviesVisibilityFilter.SHOW_ALL,
       getState().movieList.list
     )
   );
@@ -90,7 +90,7 @@ export const deleteMovieFromList = docId => async (dispatch, getState) => {
   dispatch(removedFromList(docId));
   dispatch(
     setMovieVisibility(
-      MoviesVisibilityFilter.SHOW_UPCOMING_NOT_IN_LIST,
+      MoviesVisibilityFilter.SHOW_ALL,
       getState().movieList.list
     )
   );

@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { List } from 'semantic-ui-react';
 import MovieItem from '../component/MovieItem';
+import PaginateMovieList from '../component/PaginateMovieList';
 import { fetchMovies, addMovieToList } from '../redux/actions';
 
 /**
@@ -13,12 +13,18 @@ class UpcomingMovieList extends React.Component {
   componentDidMount() {
     const { dispatch } = this.props;
     dispatch(fetchMovies());
-    this.getMoreMovies();
+    dispatch(fetchMovies());
   }
 
   getMoreMovies = () => {
-    const { dispatch, allMovies } = this.props;
-    dispatch(fetchMovies(allMovies.page + 1));
+    const {
+      dispatch,
+      allMovies: { apiPage, totalPage },
+    } = this.props;
+
+    if (apiPage < totalPage) {
+      dispatch(fetchMovies(apiPage + 1));
+    }
   };
 
   addMovie = movie => {
@@ -38,25 +44,26 @@ class UpcomingMovieList extends React.Component {
     }
 
     return (
-      <List divided relaxed>
-        {movies.map(movie => (
-          <MovieItem
-            key={movie.id}
-            {...movie}
-            onMovieAdd={() => this.addMovie(movie)}
-          />
-        ))}
-      </List>
+      <>
+        <PaginateMovieList fetchMovies={this.getMoreMovies}>
+          {/* Replace with list for unpaginated version.*/}
+          {movies.map(movie => (
+            <MovieItem
+              key={movie.id}
+              {...movie}
+              onMovieAdd={() => this.addMovie(movie)}
+            />
+          ))}
+        </PaginateMovieList>
+      </>
     );
   }
 } // UpcomingMovieList
 
 function mapStateToProps(state) {
-  let allMovies = state.allMovies || {
-    isFetching: true,
-    page: 1,
-    movies: [],
-  };
+  let allMovies = state.allMovies;
+
+  // Get only movies not in the list.
   const movies = allMovies.movies.filter(i => !i.isHidden);
   allMovies = Object.assign({}, allMovies, { movies });
   return { allMovies };
