@@ -2,21 +2,24 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { List } from 'semantic-ui-react';
 import MovieItem from '../component/MovieItem';
-import {
-  fetchList,
-  deleteMovieFromList,
-  fetchUpcomingMovies,
-} from '../redux/actions';
+import { fetchList, deleteMovieFromList } from '../redux/actions';
 
 /**
  * List of user movies.
  *
- * @class      UserMovieList (name)
+ * @class      UsersMovies (name)
  */
-class UserMovieList extends React.Component {
+class UsersMovies extends React.Component {
   componentDidMount() {
-    const { dispatch } = this.props;
+    const { dispatch, onLoad } = this.props;
+    onLoad(true);
     dispatch(fetchList());
+  }
+
+  componentDidUpdate() {
+    if (!this.props.movieList.isFetching) {
+      this.props.onLoad(false);
+    }
   }
 
   removeMovie = docId => {
@@ -28,7 +31,7 @@ class UserMovieList extends React.Component {
     const { isFetching, list } = this.props.movieList;
 
     if (isFetching) {
-      return <p>Fetching...</p>;
+      return null;
     }
 
     return (
@@ -43,11 +46,11 @@ class UserMovieList extends React.Component {
       </List>
     );
   }
-} // UserMovieList
+} // UsersMovies
 
 function mapStateToProps(state) {
   const movieList = state.movieList || { isFetching: true, list: [] };
   return { movieList };
 }
 
-export default connect(mapStateToProps)(UserMovieList);
+export default connect(mapStateToProps)(UsersMovies);

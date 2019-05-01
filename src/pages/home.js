@@ -1,8 +1,9 @@
 import React from 'react';
-import { Grid, Segment } from 'semantic-ui-react';
+import { Grid } from 'semantic-ui-react';
 import PageTitle from '../component/PageTitle';
-import UpcomingMovieList from '../container/UpcomingMovieList';
-import UserMovieList from '../container/UserMovieList';
+import SegmentLoader from '../component/SegmentLoader';
+import Movies from '../container/Movies';
+import UsersMovies from '../container/UsersMovies';
 
 class Home extends React.Component {
   render() {
@@ -11,14 +12,14 @@ class Home extends React.Component {
         <PageTitle title="Welcome to the Homepage" />
         <Grid.Row>
           <Grid.Column width={8}>
-            <Segment>
-              <UserMovieList />
-            </Segment>
+            <SegmentLoader>
+              <UsersMovies />
+            </SegmentLoader>
           </Grid.Column>
           <Grid.Column width={8}>
-            <Segment>
-              <UpcomingMovieList />
-            </Segment>
+            <SegmentLoader>
+              <Movies />
+            </SegmentLoader>
           </Grid.Column>
         </Grid.Row>
       </Grid>

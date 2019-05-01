@@ -24,7 +24,7 @@ class PaginationButtons extends React.Component {
   };
 
   render() {
-    const { onPrevClick, paginationPage, totalPages } = this.props;
+    const { onPrevClick, paginationPage } = this.props;
 
     const nextButtonProps = {
       disabled: this.state.disableNext,
@@ -46,9 +46,7 @@ class PaginationButtons extends React.Component {
             <Icon name="arrow right" />
           </Button.Content>
         </Button>
-        <span>
-          Page {paginationPage} of {totalPages}
-        </span>
+        <span>Page {paginationPage}</span>
       </div>
     );
   }

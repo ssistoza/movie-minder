@@ -1,7 +1,5 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import { List } from 'semantic-ui-react';
-import { setPaginationPage } from '../redux/actions';
 import PaginateMovieItems from './PaginateMovieItems';
 import PaginationButtons from './PaginationButtons';
 
@@ -15,27 +13,35 @@ class PaginateMovieList extends React.Component {
     perPage: 10, // Change this to determine how much movie items are render on a page.
   };
 
-  handleNextPage = () => {
-    const { dispatch, paginationPage } = this.props;
+  componentDidMount() {
+    // If there are only 2 pages. Fetch more.
+    const { paginationPage, fetchMovies } = this.props;
+    let currentPage = paginationPage;
+    let totalPages = this.totalPages();
 
-    if (paginationPage < this.totalPages()) {
-      dispatch(setPaginationPage(paginationPage + 1));
+    if (currentPage === totalPages - 1) {
+      fetchMovies();
     }
+  }
 
-    this.shouldFetchMore();
+  handleNextPage = () => {
+    const { onPageChange, paginationPage, fetchMovies } = this.props;
+    let currentPage = paginationPage;
+    let totalPages = this.totalPages();
+
+    if (currentPage < totalPages) {
+      onPageChange(currentPage + 1);
+      if (currentPage + 1 === totalPages - 1) {
+        // Start a new fetch if it is the beginning of the last page.
+        fetchMovies();
+      }
+    }
   };
 
   handlePreviousPage = () => {
-    const { dispatch, paginationPage } = this.props;
+    const { onPageChange, paginationPage } = this.props;
     if (paginationPage > 1) {
-      dispatch(setPaginationPage(paginationPage - 1));
-    }
-  };
-
-  shouldFetchMore = () => {
-    const { paginationPage } = this.props;
-    if (paginationPage === this.totalPages() - 1) {
-      this.props.fetchMovies();
+      onPageChange(paginationPage - 1);
     }
   };
 
@@ -53,7 +59,7 @@ class PaginateMovieList extends React.Component {
         </List>
         <PaginationButtons
           paginationPage={paginationPage}
-          totalPages={this.totalPages()}
+          totalPages={this.totalPages(children.length)}
           onPrevClick={this.handlePreviousPage}
           onNextClick={this.handleNextPage}
         />
@@ -62,9 +68,4 @@ class PaginateMovieList extends React.Component {
   }
 } // PaginateMovieList
 
-function mapStateToProps(state) {
-  let paginationPage = state.allMovies.paginationPage;
-  return { paginationPage };
-}
-
-export default connect(mapStateToProps)(PaginateMovieList);
+export default PaginateMovieList;

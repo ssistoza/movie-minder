@@ -1,51 +1,61 @@
 import React from 'react';
+import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import MovieItem from '../component/MovieItem';
 import PaginateMovieList from '../component/PaginateMovieList';
-import { fetchMovies, addMovieToList } from '../redux/actions';
+import * as AllPossibleActions from '../redux/actions';
 
-/**
- * List of user movies.
- *
- * @class      UpcomingMovieList (name)
- */
-class UpcomingMovieList extends React.Component {
+class Movies extends React.Component {
   componentDidMount() {
-    const { dispatch } = this.props;
-    dispatch(fetchMovies());
-    dispatch(fetchMovies());
+    const {
+      onLoad,
+      actions: { fetchMovies },
+    } = this.props;
+    onLoad(true);
+    fetchMovies();
+  }
+
+  componentDidUpdate(prevProps) {
+    if (!this.props.allMovies.isFetching) this.props.onLoad(false);
   }
 
   getMoreMovies = () => {
     const {
-      dispatch,
+      actions: { fetchMovies },
       allMovies: { apiPage, totalPage },
     } = this.props;
 
     if (apiPage < totalPage) {
-      dispatch(fetchMovies(apiPage + 1));
+      fetchMovies(apiPage + 1);
     }
   };
 
   addMovie = movie => {
-    const { dispatch } = this.props;
-    dispatch(addMovieToList(movie));
+    const {
+      actions: { addMovieToList },
+    } = this.props;
+    addMovieToList(movie);
   };
 
   render() {
-    const { isFetching, movies } = this.props.allMovies;
-
-    if (isFetching) {
-      return <p>Fetching...</p>;
-    }
+    const {
+      actions: { setPaginationPage },
+      allMovies: { movies, paginationPage },
+    } = this.props;
 
     if (movies.length <= 0) {
       return <p>No Movies!</p>;
     }
 
+    const paginateMovieListProps = {
+      onPageChange: setPaginationPage,
+      fetchMovies: this.getMoreMovies,
+      paginationPage,
+    };
+
     return (
       <>
-        <PaginateMovieList fetchMovies={this.getMoreMovies}>
+        <PaginateMovieList {...paginateMovieListProps}>
           {/* Replace with list for unpaginated version.*/}
           {movies.map(movie => (
             <MovieItem
@@ -58,7 +68,7 @@ class UpcomingMovieList extends React.Component {
       </>
     );
   }
-} // UpcomingMovieList
+} // Movies
 
 function mapStateToProps(state) {
   let allMovies = state.allMovies;
@@ -69,4 +79,11 @@ function mapStateToProps(state) {
   return { allMovies };
 }
 
-export default connect(mapStateToProps)(UpcomingMovieList);
+function mapDispatchToProps(dispatch) {
+  return { actions: bindActionCreators(AllPossibleActions, dispatch) };
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Movies);
