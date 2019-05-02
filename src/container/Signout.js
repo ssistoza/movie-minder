@@ -1,16 +1,23 @@
 import React from 'react';
-import { FirebaseContext } from '../firebase';
+import { connect } from 'react-redux';
+import { signoutWithFirebase } from '../redux/actions';
 
 class Signout extends React.Component {
-  static contextType = FirebaseContext;
-
   componentDidMount() {
-    this.context.signOut();
+    const { dispatch } = this.props;
+    dispatch(signoutWithFirebase());
   }
 
   render() {
-    return <div>Signing out...</div>;
+    if (this.props.authenticated) return <div>Signing out...</div>;
+
+    return <div>Signed out!</div>;
   }
 } // Signout
 
-export default Signout;
+function mapStateToProps(state) {
+  const authenticated = state.authenticated;
+  return { authenticated };
+}
+
+export default connect(mapStateToProps)(Signout);

@@ -5,7 +5,7 @@ import EmailPasswordForm from './EmailPasswordForm';
 const LoginForm = props => (
   <EmailPasswordForm
     {...props}
-    autocomplete="current-password"
+    autoComplete="current-password"
     title="Please Sign In"
     buttonText="Sign in"
   />

@@ -2,7 +2,7 @@ import React from 'react';
 import { Form, Button } from 'semantic-ui-react';
 import PageTitle from './PageTitle';
 
-const EmailPasswordForm = ({ onSubmit, title, buttonText, autocomplete }) => (
+const EmailPasswordForm = ({ onSubmit, title, buttonText, autoComplete }) => (
   <>
     <PageTitle title={title} />
     <Form onSubmit={onSubmit}>
@@ -17,7 +17,7 @@ const EmailPasswordForm = ({ onSubmit, title, buttonText, autocomplete }) => (
       </Form.Field>
       <Form.Field>
         <label>Password</label>
-        <input autocomplete={autocomplete} type="password" name="password" />
+        <input autocomplete={autoComplete} type="password" name="password" />
       </Form.Field>
       <Button type="submit">{buttonText}</Button>
     </Form>

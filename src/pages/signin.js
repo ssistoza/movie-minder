@@ -10,7 +10,7 @@ class Signin extends React.Component {
         <Grid.Row>
           <Grid.Column width={8}>
             <SegmentLoader>
-              <SigninContainer />
+              <SigninContainer {...this.props} />
             </SegmentLoader>
           </Grid.Column>
         </Grid.Row>

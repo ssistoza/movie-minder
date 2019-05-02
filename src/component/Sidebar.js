@@ -32,7 +32,7 @@ const SidebarExampleVisible = ({ children }) => (
           Search Movies
         </Menu.Item>
       </Link>
-      <Link to="/signin">
+      <Link to="/login">
         <Menu.Item as="a">
           <Icon name="sign-in" />
           Sign In

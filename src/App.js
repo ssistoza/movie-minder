@@ -1,69 +1,82 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import { FirebaseContext } from './firebase';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+
+// Components
 import Sidebar from './component/Sidebar';
 import PrivateRoute from './component/PrivateRoute';
+
+// Pages
 import Signin from './pages/signin';
 import Signup from './pages/signup';
 import Signout from './pages/signout';
 import Home from './pages/home';
+
+// Actions
+import * as AllPossibleActions from './redux/actions';
+
 import './App.css';
 
+/**
+ * Class for application.
+ * - App needs to know who is signed in to be able to distinguish who can access the routes.
+ * @class      App (name)
+ */
 class App extends React.Component {
-  state = {
-    auth: false,
-    loading: false,
-    user: null,
-  };
-
-  static contextType = FirebaseContext;
-
-  componentWillMount() {
-    this.context.auth.onAuthStateChanged(user => {
-      if (user) {
-        this.setState({
-          auth: true,
-          user: user,
-          loading: false,
-        });
-      } else {
-        this.setState({
-          auth: false,
-          user: null,
-          loading: false,
-        });
-      }
-    });
-  }
+  isAuthenticated = () => (this.props.authenticated ? true : false);
 
   render() {
     return (
       <Router>
         <Sidebar>
-          <PrivateRoute
-            exact
-            path="/home"
-            component={Home}
-            auth={this.state.auth}
-          />
-          <PrivateRoute
-            exact
-            path="/list"
-            component={Home}
-            auth={this.state.auth}
-          />
-          <Route exact path="/login" component={Signin} />
-          <Route exact path="/signup" component={Signup} />
-          <PrivateRoute
-            exact
-            path="/signout"
-            component={Signout}
-            auth={this.state.auth}
-          />
+          <Switch>
+            <PrivateRoute
+              exact
+              path="/home"
+              component={Home}
+              auth={this.isAuthenticated()}
+            />
+            <PrivateRoute
+              exact
+              path="/list"
+              component={Home}
+              auth={this.isAuthenticated()}
+            />
+            <PrivateRoute
+              exact
+              path="/signout"
+              component={Signout}
+              auth={this.isAuthenticated()}
+            />
+            <Route
+              exact
+              path="/login"
+              render={() => (
+                <Signin
+                  authenticated={this.isAuthenticated()}
+                  actions={this.props.actions}
+                />
+              )}
+            />
+            <Route exact path="/signup" component={Signup} />
+          </Switch>
         </Sidebar>
       </Router>
     );
   }
 }
 
-export default App;
+function mapStateToProps(state) {
+  const authenticated = state.authenticated;
+  return { authenticated };
+}
+
+function mapDispatchToProps(dispatch) {
+  return { actions: bindActionCreators(AllPossibleActions, dispatch) };
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(App);
