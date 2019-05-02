@@ -37,6 +37,7 @@
     ]
   },
   "devDependencies": {
+    "create-index": "^2.4.0",
     "redux-devtools-extension": "^2.13.8",
     "redux-logger": "^3.0.6"
   }

@@ -3,7 +3,12 @@ import PropTypes from 'prop-types';
 import EmailPasswordForm from './EmailPasswordForm';
 
 const LoginForm = props => (
-  <EmailPasswordForm {...props} title="Please Sign In" buttonText="Sign in" />
+  <EmailPasswordForm
+    {...props}
+    autocomplete="current-password"
+    title="Please Sign In"
+    buttonText="Sign in"
+  />
 );
 
 LoginForm.propTypes = {

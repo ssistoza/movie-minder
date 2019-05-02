@@ -32,8 +32,4 @@ function updateObject(oldObject, newValues) {
   return Object.assign({}, oldObject, newValues);
 }
 
-function maxPages(number) {
-  return Math.ceil(number / 8);
-}
-
-export { formatDate, updateObject, isUpcomingDate, maxPages };
+export { formatDate, updateObject, isUpcomingDate };

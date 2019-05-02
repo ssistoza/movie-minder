@@ -36,9 +36,6 @@ class App extends React.Component {
     });
   }
 
-  // const allImportedComponents = Object.getOwnPropertyNames(Pages);
-  // allImportedComponents.shift();
-
   render() {
     return (
       <Router>

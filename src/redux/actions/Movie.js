@@ -1,4 +1,3 @@
-import Firebase from '../../firebase';
 import { isUpcomingDate } from '../../helper';
 
 export const REQUEST_MOVIES = 'REQUEST_MOVIES';
