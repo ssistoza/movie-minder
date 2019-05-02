@@ -15,6 +15,8 @@ import {
   MoviesVisibilityFilter,
 } from './Movie';
 import { fetchMovies, setMovieVisibility, setPaginationPage } from './Movie';
+import { SIGN_IN, SIGNED_IN, SIGN_OUT, SIGNED_OUT } from './User';
+import { signinWithFirebase, signoutWithFirebase } from './User';
 
 /* Action Types */
 export { REQUEST_MOVIES, RECEIVE_MOVIES };
@@ -23,7 +25,7 @@ export { REQUEST_LIST, RECEIVE_LIST };
 export { REMOVE_FROM_LIST, REMOVED_FROM_LIST };
 export { SET_MOVIES_VISIBILITY, MoviesVisibilityFilter };
 export { SET_PAGINATION_PAGE };
-
+export { SIGN_IN, SIGNED_IN, SIGN_OUT, SIGNED_OUT };
 /* Action Creators */
 // Create
 export { addMovieToList };
@@ -34,3 +36,4 @@ export { fetchList, fetchMovies };
 export { deleteMovieFromList };
 // Custom
 export { setMovieVisibility, setPaginationPage };
+export { signinWithFirebase, signoutWithFirebase };
