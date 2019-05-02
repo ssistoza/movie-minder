@@ -21,8 +21,11 @@ export const signinWithFirebase = (email, password) => async (
   getState
 ) => {
   dispatch(signIn());
-  const response = await this.auth.signInWithEmailAndPassword(email, password);
-  const loggedIn = await this.auth.currentUser;
+  const response = await Firebase.auth.signInWithEmailAndPassword(
+    email,
+    password
+  );
+  const loggedIn = await Firebase.auth.currentUser;
   dispatch(signedIn(loggedIn));
 };
 
@@ -42,7 +45,7 @@ const signedOut = () => ({
 export const signoutWithFirebase = () => async (dispatch, getState) => {
   if (getState().user) {
     dispatch(signOut());
-    const response = await this.auth.signout();
+    const response = await Firebase.auth.signout();
     dispatch(signedOut());
   } else {
     throw new Error('No User Signed In');
