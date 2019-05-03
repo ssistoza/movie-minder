@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "568af8164fc0d6f45eecb24533727120",
+    "revision": "1a3f7af8badcabe275ede7178fa62bc0",
     "url": "/movie-minder/index.html"
   },
   {
@@ -8,7 +8,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/movie-minder/static/css/2.808b3cdb.chunk.css"
   },
   {
-    "revision": "5b1f8181190e6e89263e",
+    "revision": "40b8ce22f502abdc283e",
     "url": "/movie-minder/static/css/main.06b739c4.chunk.css"
   },
   {
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/movie-minder/static/js/2.c9f727f4.chunk.js"
   },
   {
-    "revision": "5b1f8181190e6e89263e",
-    "url": "/movie-minder/static/js/main.f1a42dc1.chunk.js"
+    "revision": "40b8ce22f502abdc283e",
+    "url": "/movie-minder/static/js/main.b40e020a.chunk.js"
   },
   {
     "revision": "90ad9230cb9017a1618e",
