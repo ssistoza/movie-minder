@@ -1,6 +1,5 @@
 {
   "name": "movie-minder",
-  "homepage": "https://ssistoza.github.io/movie-minder",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -43,6 +42,7 @@
   "devDependencies": {
     "create-index": "^2.4.0",
     "gh-pages": "^2.0.1",
+    "now": "^15.0.11",
     "recompose": "^0.30.0",
     "redux-devtools-extension": "^2.13.8",
     "redux-logger": "^3.0.6"

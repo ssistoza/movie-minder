@@ -1,4 +1,5 @@
-ls
+# listing
+ls -al
 
 # Move now.json into build folder!
 cp now.json ./build
