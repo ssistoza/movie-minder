@@ -1,5 +1,6 @@
 {
   "name": "movie-minder",
+  "homepage": "https://ssistoza.github.io/movie-minder",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
