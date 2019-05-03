@@ -7,6 +7,7 @@ cache:
 script:
   - yarn install
   - yarn run build
+  - echo $REACT_APP_MOVIE_UPCOMING_URL
 deploy:
   provider: pages
   skip_cleanup: true

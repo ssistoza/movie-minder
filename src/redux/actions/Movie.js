@@ -14,7 +14,6 @@ const recieveMovies = json => ({
 // Thunk
 export const fetchMovies = page => async dispatch => {
   dispatch(requestMovies());
-  console.log(process.env.REACT_APP_MOVIE_UPCOMING_URL);
   const url = `${process.env.REACT_APP_MOVIE_UPCOMING_URL}&page=${page}`;
   const response = await fetch(url);
   const upcomingMovies = await response.json();
