@@ -11,4 +11,4 @@ cp now.json ./build
 cd build
 
 # Run now!
-now --token=$NOW_TOKEN
+npx now --token=$NOW_TOKEN
