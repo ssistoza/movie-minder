@@ -25,6 +25,7 @@ import './App.css';
  * - App needs to know who is signed in to be able to distinguish who can access the routes.
  * @class      App (name)
  */
+
 class App extends React.Component {
   isAuthenticated = () => (this.props.authenticated ? true : false);
 
