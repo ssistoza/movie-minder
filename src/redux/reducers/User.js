@@ -1,6 +1,6 @@
 import { SIGN_IN, SIGNED_IN, SIGN_OUT, SIGNED_OUT } from '../actions';
 
-const INITIAL_STATE = true;
+const INITIAL_STATE = false;
 
 export const authenticated = (state = INITIAL_STATE, action) => {
   switch (action.type) {
