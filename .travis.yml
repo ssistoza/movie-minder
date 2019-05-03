@@ -7,10 +7,12 @@ cache:
 script:
   - yarn install
   - yarn run build
-# THIS DEPLOY FROM TRAVIS CI DOCS DOES NOT WORK.
-# deploy:
-#   provider: pages
-#   skip_cleanup: true
+deploy:
+  provider: script
+  skip_cleanup: true
+  script: bash now-deploy.sh
+  on:
+    branch: master
 #   github-token: $GH_TOKEN
 #   keep-history: true
 #   local-dir: build/
