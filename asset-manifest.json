@@ -1,0 +1,18 @@
+{
+  "files": {
+    "main.css": "/movie-minder/static/css/main.06b739c4.chunk.css",
+    "main.js": "/movie-minder/static/js/main.f1a42dc1.chunk.js",
+    "main.js.map": "/movie-minder/static/js/main.f1a42dc1.chunk.js.map",
+    "runtime~main.js": "/movie-minder/static/js/runtime~main.032eeba6.js",
+    "runtime~main.js.map": "/movie-minder/static/js/runtime~main.032eeba6.js.map",
+    "static/css/2.808b3cdb.chunk.css": "/movie-minder/static/css/2.808b3cdb.chunk.css",
+    "static/js/2.c9f727f4.chunk.js": "/movie-minder/static/js/2.c9f727f4.chunk.js",
+    "static/js/2.c9f727f4.chunk.js.map": "/movie-minder/static/js/2.c9f727f4.chunk.js.map",
+    "index.html": "/movie-minder/index.html",
+    "precache-manifest.9989a21713f7416ebe41d45114f55c67.js": "/movie-minder/precache-manifest.9989a21713f7416ebe41d45114f55c67.js",
+    "service-worker.js": "/movie-minder/service-worker.js",
+    "static/css/2.808b3cdb.chunk.css.map": "/movie-minder/static/css/2.808b3cdb.chunk.css.map",
+    "static/css/main.06b739c4.chunk.css.map": "/movie-minder/static/css/main.06b739c4.chunk.css.map",
+    "static/media/semantic.min.css": "/movie-minder/static/media/outline-icons.ef60a4f6.woff"
+  }
+}
