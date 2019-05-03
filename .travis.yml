@@ -10,7 +10,11 @@ script:
 deploy:
   provider: script
   skip_cleanup: true
-  script: bash now-deploy.sh
+  script:
+    - ls
+    - cp now.json ./build
+    - cd build
+    - now --token=$NOW_TOKEN
   on:
     branch: master
 #   github-token: $GH_TOKEN
