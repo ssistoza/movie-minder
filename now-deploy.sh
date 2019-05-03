@@ -1,6 +1,9 @@
 # listing
 ls -al
 
+#
+yarn add now --dev
+
 # Move now.json into build folder!
 cp now.json ./build
 
