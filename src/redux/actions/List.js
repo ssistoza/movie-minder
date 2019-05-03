@@ -16,10 +16,10 @@ const addedToList = docId => ({
   data: docId,
 });
 
-const notAddedToList = error => ({
-  type: NOT_ADDED_TO_LIST,
-  data: error,
-});
+// const notAddedToList = error => ({
+//   type: NOT_ADDED_TO_LIST,
+//   data: error,
+// });
 
 // Thunk
 export const addMovieToList = newMovie => async (dispatch, getState) => {

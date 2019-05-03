@@ -12,7 +12,9 @@ class Home extends React.Component {
         <PageTitle title="Filter Through List" />
         <Grid.Row>
           <Grid.Column width={8}>
-            <SegmentLoader>{/* <UsersMovies /> */}</SegmentLoader>
+            <SegmentLoader>
+              <UsersMovies />
+            </SegmentLoader>
           </Grid.Column>
           <Grid.Column width={8}>
             <SegmentLoader>

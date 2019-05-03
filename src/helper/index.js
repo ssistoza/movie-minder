@@ -20,7 +20,7 @@ function formatDate(dateString) {
     'Dec',
   ];
 
-  return `${MONTH[monthNum]}, ${dateForm.getUTCDate()} ${year}`;
+  return `${MONTH[monthNum]}, ${day} ${year}`;
 }
 
 function isUpcomingDate(currentDate, dateToBeChecked) {
