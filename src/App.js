@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { HashRouter as Router, Route, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
@@ -30,7 +30,7 @@ class App extends React.Component {
 
   render() {
     return (
-      <Router basename={process.env.PUBLIC_URL}>
+      <Router>
         <Sidebar>
           <Switch>
             <PrivateRoute
