@@ -30,7 +30,7 @@ class App extends React.Component {
 
   render() {
     return (
-      <Router>
+      <Router basename={process.env.PUBLIC_URL}>
         <Sidebar>
           <Switch>
             <PrivateRoute
