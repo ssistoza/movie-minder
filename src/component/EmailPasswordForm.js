@@ -8,16 +8,11 @@ const EmailPasswordForm = ({ onSubmit, title, buttonText, autoComplete }) => (
     <Form onSubmit={onSubmit}>
       <Form.Field>
         <label>Email</label>
-        <input
-          autocomplete="username"
-          placeholder="johndoe@gmail.com"
-          type="email"
-          name="email"
-        />
+        <input placeholder="johndoe@gmail.com" type="email" name="email" />
       </Form.Field>
       <Form.Field>
         <label>Password</label>
-        <input autocomplete={autoComplete} type="password" name="password" />
+        <input type="password" name="password" />
       </Form.Field>
       <Button type="submit">{buttonText}</Button>
     </Form>

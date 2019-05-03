@@ -12,14 +12,8 @@ const SidebarMenu = props => {
 
 const BasicSidebarMenu = () => (
   <>
-    <Link to="/home">
-      <Menu.Item as="a">
-        <Icon name="home" />
-        Home
-      </Menu.Item>
-    </Link>
-    <Link to="/login">
-      <Menu.Item as="a">
+    <Link className="item" to="/login">
+      <Menu.Item as="span">
         <Icon name="sign-in" />
         Sign In
       </Menu.Item>
@@ -29,26 +23,26 @@ const BasicSidebarMenu = () => (
 
 const AuthenticatedSidebarMenu = () => (
   <>
-    <Link to="/home">
-      <Menu.Item as="a">
+    <Link className="item" to="/home">
+      <Menu.Item as="span">
         <Icon name="home" />
         Home
       </Menu.Item>
     </Link>
-    <Link to="/list">
-      <Menu.Item as="a">
+    <Link className="item" to="/list">
+      <Menu.Item as="span">
         <Icon name="list" />
         My List
       </Menu.Item>
     </Link>
-    <Link to="/home">
-      <Menu.Item as="a">
+    <Link className="item" to="/movies">
+      <Menu.Item as="span">
         <Icon name="video" />
         Search Movies
       </Menu.Item>
     </Link>
-    <Link to="/signout">
-      <Menu.Item as="a">
+    <Link className="item" to="/signout">
+      <Menu.Item as="span">
         <Icon name="sign-out" />
         Sign Out
       </Menu.Item>

@@ -1,5 +1,4 @@
 import Firebase from '../../firebase';
-
 export const SIGN_IN = 'SIGN_IN';
 export const SIGNED_IN = 'SIGNED_IN';
 
@@ -43,9 +42,9 @@ const signedOut = () => ({
 });
 
 export const signoutWithFirebase = () => async (dispatch, getState) => {
-  if (getState().user) {
+  if (getState().authenticated) {
     dispatch(signOut());
-    const response = await Firebase.auth.signout();
+    const response = await Firebase.auth.signOut();
     dispatch(signedOut());
   } else {
     throw new Error('No User Signed In');

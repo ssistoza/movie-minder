@@ -12,6 +12,8 @@ import Signin from './pages/signin';
 import Signup from './pages/signup';
 import Signout from './pages/signout';
 import Home from './pages/home';
+import List from './pages/list';
+import Movies from './pages/movies';
 
 // Actions
 import * as AllPossibleActions from './redux/actions';
@@ -40,13 +42,19 @@ class App extends React.Component {
             <PrivateRoute
               exact
               path="/list"
-              component={Home}
+              component={List}
               auth={this.isAuthenticated()}
             />
             <PrivateRoute
               exact
               path="/signout"
               component={Signout}
+              auth={this.isAuthenticated()}
+            />
+            <PrivateRoute
+              exact
+              path="/movies"
+              component={Movies}
               auth={this.isAuthenticated()}
             />
             <Route

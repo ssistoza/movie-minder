@@ -10,10 +10,8 @@ class Signup extends React.Component {
     event.preventDefault();
 
     const { email, password } = event.target;
-    console.log('email: ', email.value);
-    console.log('password: ', password.value);
     try {
-      const user = await this.context.createUserWithEmailAndPassword(
+      await this.context.createUserWithEmailAndPassword(
         email.value,
         password.value
       );

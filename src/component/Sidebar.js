@@ -2,7 +2,7 @@ import React from 'react';
 import { Menu, Sidebar } from 'semantic-ui-react';
 import SidebarMenuContainer from '../container/SidebarMenuContainer';
 
-const SidebarExampleVisible = ({ children }) => (
+const SidebarComponent = ({ children }) => (
   <Sidebar.Pushable className="max-stop-overflow">
     <Sidebar
       as={Menu}
@@ -22,4 +22,4 @@ const SidebarExampleVisible = ({ children }) => (
   </Sidebar.Pushable>
 );
 
-export default SidebarExampleVisible;
+export default SidebarComponent;

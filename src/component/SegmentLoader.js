@@ -9,7 +9,7 @@ class SegmentLoader extends React.Component {
   };
 
   static propTypes = {
-    children: PropTypes.element.isRequired,
+    children: PropTypes.element,
   };
 
   setLoader = i => {
@@ -17,11 +17,15 @@ class SegmentLoader extends React.Component {
   };
 
   render() {
-    return (
-      <Segment {...this.state}>
-        {React.cloneElement(this.props.children, { onLoad: this.setLoader })}
-      </Segment>
-    );
+    if (this.props.children) {
+      return (
+        <Segment {...this.state}>
+          {React.cloneElement(this.props.children, { onLoad: this.setLoader })}
+        </Segment>
+      );
+    } else {
+      return <Segment placeholder />;
+    }
   }
 } // SegmentLoader
 
