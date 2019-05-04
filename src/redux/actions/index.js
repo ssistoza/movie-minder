@@ -16,7 +16,11 @@ import {
 } from './Movie';
 import { fetchMovies, setMovieVisibility, setPaginationPage } from './Movie';
 import { SIGN_IN, SIGNED_IN, SIGN_OUT, SIGNED_OUT } from './User';
-import { signinWithFirebase, signoutWithFirebase } from './User';
+import {
+  signinWithFirebase,
+  signoutWithFirebase,
+  checkIfSignedIn,
+} from './User';
 
 /* Action Types */
 export { REQUEST_MOVIES, RECEIVE_MOVIES };
@@ -36,4 +40,4 @@ export { fetchList, fetchMovies };
 export { deleteMovieFromList };
 // Custom
 export { setMovieVisibility, setPaginationPage };
-export { signinWithFirebase, signoutWithFirebase };
+export { signinWithFirebase, signoutWithFirebase, checkIfSignedIn };

@@ -1,5 +1,8 @@
 import React from 'react';
 import { withRouter } from 'react-router';
+import { connect } from 'react-redux';
+import { compose } from 'recompose';
+import { signinWithFirebase, checkIfSignedIn } from '../redux/actions';
 import LoginForm from '../component/LoginForm';
 
 /** CONTAINER
@@ -9,6 +12,10 @@ import LoginForm from '../component/LoginForm';
  * @class      Signin (name)
  */
 class Signin extends React.Component {
+  componentWillMount() {
+    this.props.dispatch(checkIfSignedIn());
+  }
+
   // If user has logged move away from this page.
   componentDidMount() {
     const { authenticated, history } = this.props;
@@ -24,7 +31,7 @@ class Signin extends React.Component {
   handleSignin = async event => {
     event.preventDefault();
     const { email, password } = event.target;
-    this.props.actions.signinWithFirebase(email.value, password.value);
+    this.props.dispatch(signinWithFirebase(email.value, password.value));
   };
 
   render() {
@@ -32,4 +39,12 @@ class Signin extends React.Component {
   }
 } // Signin
 
-export default withRouter(Signin);
+function mapStateToProps(state) {
+  const authenticated = state.authenticated;
+  return { authenticated };
+}
+
+export default compose(
+  connect(mapStateToProps),
+  withRouter
+)(Signin);

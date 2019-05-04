@@ -47,3 +47,13 @@ export const signoutWithFirebase = () => async (dispatch, getState) => {
     throw new Error('No User Signed In');
   }
 };
+
+export const checkIfSignedIn = () => async (dispatch, getState) => {
+  Firebase.auth.onAuthStateChanged(user => {
+    if (user) {
+      dispatch(signedIn(user));
+    } else {
+      dispatch(signedOut());
+    }
+  });
+};
