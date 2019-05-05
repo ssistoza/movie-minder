@@ -16,11 +16,6 @@ const addedToList = docId => ({
   data: docId,
 });
 
-// const notAddedToList = error => ({
-//   type: NOT_ADDED_TO_LIST,
-//   data: error,
-// });
-
 // Thunk
 export const addMovieToList = newMovie => async (dispatch, getState) => {
   dispatch(addToList(newMovie));
@@ -51,6 +46,10 @@ const receiveList = json => ({
 
 // Thunk.
 export const fetchList = () => async (dispatch, getState) => {
+  if (!getState().movieList.isFetching) {
+    // Already fetched!
+    return Promise.resolve();
+  }
   dispatch(requestList());
   const list = await Firebase.db.collection('movie-list').get();
   dispatch(receiveList(list));
@@ -62,8 +61,6 @@ export const fetchList = () => async (dispatch, getState) => {
   );
   return list;
 };
-
-/* Update in { CRUD } */
 
 /* Delete in { CRUD } */
 export const REMOVE_FROM_LIST = 'REMOVE_FROM_LIST';
@@ -97,3 +94,23 @@ export const deleteMovieFromList = docId => async (dispatch, getState) => {
 
   return removed;
 };
+
+export const SEARCH_LIST = 'SEARCH_LIST';
+export const SEARCHED_LIST = 'SEARCHED_LIST';
+export const MOVIE_VISBILITIY = {
+  SHOW_ALL: 'SHOW_ALL',
+  SHOW_PAST: 'SHOW_PAST',
+  SHOW_UPCOMING: 'SHOW_UPCOMING',
+};
+export const LIST_VISIBILITY = {
+  SHOW_ALL: 'SHOW_ALL',
+  SHOW_WATCHED: 'SHOW_WATCHED',
+  SHOW_UNWATCHED: 'SHOW_UNWATCHED',
+};
+
+export const searchList = (searchText, movieVisibility, listVisibility) => ({
+  type: SEARCH_LIST,
+  data: searchText,
+  movieVisibility,
+  listVisibility,
+});

@@ -2,7 +2,7 @@ import React from 'react';
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import { compose } from 'recompose';
-import { signinWithFirebase, checkIfSignedIn } from '../redux/actions';
+import { signinWithFirebase } from '../redux/actions';
 import LoginForm from '../component/LoginForm';
 
 /** CONTAINER
@@ -12,12 +12,11 @@ import LoginForm from '../component/LoginForm';
  * @class      Signin (name)
  */
 class Signin extends React.Component {
-  componentWillMount() {
-    this.props.dispatch(checkIfSignedIn());
-  }
-
   // If user has logged move away from this page.
   componentDidMount() {
+    this.props.dispatch(
+      signinWithFirebase('shane62za@gmail.com', 'development')
+    );
     const { authenticated, history } = this.props;
     if (authenticated) history.push('/home');
   }

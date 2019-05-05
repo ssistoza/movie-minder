@@ -5,7 +5,7 @@ import SegmentLoader from '../component/SegmentLoader';
 import SearchForm from '../component/SearchForm';
 import UsersMovies from '../container/UsersMovies';
 
-class Home extends React.Component {
+class List extends React.Component {
   render() {
     return (
       <Grid padded>
@@ -25,6 +25,6 @@ class Home extends React.Component {
       </Grid>
     );
   }
-} // Home
+} // List
 
-export default Home;
+export default List;

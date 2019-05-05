@@ -1,10 +1,11 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Form, Button } from 'semantic-ui-react';
 import PageTitle from './PageTitle';
 
-const EmailPasswordForm = ({ onSubmit, title, buttonText, autoComplete }) => (
+const EmailPasswordForm = ({ onSubmit, title, buttonText }) => (
   <>
-    <PageTitle title={title} />
+    {title ? <PageTitle title={title} /> : null}
     <Form onSubmit={onSubmit}>
       <Form.Field>
         <label>Email</label>
@@ -18,5 +19,11 @@ const EmailPasswordForm = ({ onSubmit, title, buttonText, autoComplete }) => (
     </Form>
   </>
 );
+
+EmailPasswordForm.propTypes = {
+  onSubmit: PropTypes.func.isRequired,
+  title: PropTypes.string,
+  buttonText: PropTypes.string.isRequired,
+};
 
 export default EmailPasswordForm;

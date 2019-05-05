@@ -1,36 +1,28 @@
 import React from 'react';
 import { Form, Button, Radio, Checkbox, Input } from 'semantic-ui-react';
 
-class SearchForm extends React.Component {
+class SearchListForm extends React.Component {
   state = {
     search: '',
     releaseDate: '',
-    watched: false,
-    notWatched: false,
   };
 
   handleSearch = (e, { name, value }) => {
     this.setState({ [name]: value });
-    this.handleSubmit();
+    // this.handleSubmit();
   };
 
   handleChange = (e, { name, value }) => {
     this.setState({ [name]: value });
-    this.handleSubmit();
+    // this.handleSubmit();
   };
 
-  toggle = (e, { name, checked }) => {
-    this.setState({ [name]: checked });
-    this.handleSubmit();
-  };
-
-  handleSubmit = () => {
-    // use state...!
-    // this.props.searchSubmit({ ...this.state });
+  handleSubmit = evt => {
+    this.props.onSubmit(evt, this.state);
   };
 
   render() {
-    const { releaseDate, search, watched, notWatched } = this.state;
+    const { releaseDate, search } = this.state;
     return (
       <>
         <Form onSubmit={this.handleSubmit}>
@@ -71,23 +63,7 @@ class SearchForm extends React.Component {
               onChange={this.handleChange}
             />
           </Form.Group>
-          <Form.Group inline>
-            <label>Filter by Watched</label>
-            <Form.Field
-              name="watched"
-              control={Checkbox}
-              label="Watched"
-              checked={watched}
-              onChange={this.toggle}
-            />
-            <Form.Field
-              name="notWatched"
-              control={Checkbox}
-              label="Not Watched"
-              checked={notWatched}
-              onChange={this.toggle}
-            />
-          </Form.Group>
+          {this.props.children}
           <Button type="submit">Search</Button>
         </Form>
       </>
@@ -95,4 +71,4 @@ class SearchForm extends React.Component {
   }
 }
 
-export default SearchForm;
+export default SearchListForm;

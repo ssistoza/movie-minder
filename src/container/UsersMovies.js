@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { List } from 'semantic-ui-react';
-import MovieItem from '../component/MovieItem';
+import EditableMovieItem from '../component/EditableMovieItem';
 import { fetchList, deleteMovieFromList } from '../redux/actions';
 
 /**
@@ -11,8 +11,15 @@ import { fetchList, deleteMovieFromList } from '../redux/actions';
  */
 class UsersMovies extends React.Component {
   componentDidMount() {
-    const { dispatch, onLoad } = this.props;
-    onLoad(true);
+    const {
+      dispatch,
+      onLoad,
+      movieList: { isFetching },
+    } = this.props;
+    if (isFetching) {
+      onLoad(true);
+    }
+
     dispatch(fetchList());
   }
 
@@ -28,16 +35,12 @@ class UsersMovies extends React.Component {
   };
 
   render() {
-    const { isFetching, list } = this.props.movieList;
-
-    if (isFetching) {
-      return null;
-    }
+    const { list } = this.props.movieList;
 
     return (
       <List divided relaxed>
         {list.map(movie => (
-          <MovieItem
+          <EditableMovieItem
             key={movie.docId}
             {...movie}
             onMovieRemove={() => this.removeMovie(movie.docId)}
@@ -49,7 +52,7 @@ class UsersMovies extends React.Component {
 } // UsersMovies
 
 function mapStateToProps(state) {
-  const movieList = state.movieList || { isFetching: true, list: [] };
+  const movieList = state.movieList;
   return { movieList };
 }
 

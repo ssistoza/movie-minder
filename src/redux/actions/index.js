@@ -5,8 +5,16 @@ import {
   RECEIVE_LIST,
   REMOVE_FROM_LIST,
   REMOVED_FROM_LIST,
+  SEARCH_LIST,
+  SEARCHED_LIST,
+  LIST_VISIBILITY,
 } from './List';
-import { addMovieToList, fetchList, deleteMovieFromList } from './List';
+import {
+  addMovieToList,
+  fetchList,
+  deleteMovieFromList,
+  searchList,
+} from './List';
 import {
   REQUEST_MOVIES,
   RECEIVE_MOVIES,
@@ -30,6 +38,7 @@ export { REMOVE_FROM_LIST, REMOVED_FROM_LIST };
 export { SET_MOVIES_VISIBILITY, MoviesVisibilityFilter };
 export { SET_PAGINATION_PAGE };
 export { SIGN_IN, SIGNED_IN, SIGN_OUT, SIGNED_OUT };
+export { SEARCH_LIST, SEARCHED_LIST, LIST_VISIBILITY };
 /* Action Creators */
 // Create
 export { addMovieToList };
@@ -39,5 +48,6 @@ export { fetchList, fetchMovies };
 // Delete
 export { deleteMovieFromList };
 // Custom
+export { searchList };
 export { setMovieVisibility, setPaginationPage };
 export { signinWithFirebase, signoutWithFirebase, checkIfSignedIn };

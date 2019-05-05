@@ -1,7 +1,7 @@
 import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import MovieItem from '../component/MovieItem';
+import EditableMovieItem from '../component/EditableMovieItem';
 import PaginateMovieList from '../component/PaginateMovieList';
 import * as AllPossibleActions from '../redux/actions';
 
@@ -30,12 +30,7 @@ class Movies extends React.Component {
     }
   };
 
-  addMovie = movie => {
-    const {
-      actions: { addMovieToList },
-    } = this.props;
-    addMovieToList(movie);
-  };
+  addMovie = movie => this.props.actions.addMovieToList(movie);
 
   render() {
     const {
@@ -47,18 +42,16 @@ class Movies extends React.Component {
       return <p>No Movies!</p>;
     }
 
-    const paginateMovieListProps = {
-      onPageChange: setPaginationPage,
-      fetchMovies: this.getMoreMovies,
-      paginationPage,
-    };
-
     return (
       <>
-        <PaginateMovieList {...paginateMovieListProps}>
+        <PaginateMovieList
+          onPageChange={setPaginationPage}
+          fetchMovies={this.getMoreMovies}
+          paginationPage={paginationPage}
+        >
           {/* Replace with list for unpaginated version.*/}
           {movies.map(movie => (
-            <MovieItem
+            <EditableMovieItem
               key={movie.id}
               {...movie}
               onMovieAdd={() => this.addMovie(movie)}

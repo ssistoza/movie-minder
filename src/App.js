@@ -1,7 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 
 // Components
 import Sidebar from './component/Sidebar';
@@ -15,9 +14,7 @@ import Home from './pages/home';
 import List from './pages/list';
 import Movies from './pages/movies';
 
-// Actions
-import * as AllPossibleActions from './redux/actions';
-
+import { checkIfSignedIn } from './redux/actions';
 import './App.css';
 
 /**
@@ -27,6 +24,10 @@ import './App.css';
  */
 
 class App extends React.Component {
+  componentDidMount() {
+    this.props.dispatch(checkIfSignedIn());
+  }
+
   isAuthenticated = () => (this.props.authenticated ? true : false);
 
   render() {
@@ -58,9 +59,9 @@ class App extends React.Component {
               component={Movies}
               auth={this.isAuthenticated()}
             />
+            <Route exact path="/signup" component={Signup} />
             <Route
-              exact
-              path="/login"
+              path="/"
               render={() => (
                 <Signin
                   authenticated={this.isAuthenticated()}
@@ -68,7 +69,6 @@ class App extends React.Component {
                 />
               )}
             />
-            <Route exact path="/signup" component={Signup} />
           </Switch>
         </Sidebar>
       </Router>
@@ -81,11 +81,4 @@ function mapStateToProps(state) {
   return { authenticated };
 }
 
-function mapDispatchToProps(dispatch) {
-  return { actions: bindActionCreators(AllPossibleActions, dispatch) };
-}
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(App);
+export default connect(mapStateToProps)(App);

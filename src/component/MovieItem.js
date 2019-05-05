@@ -1,10 +1,20 @@
 import React from 'react';
-import { List, Button, Image, Popup } from 'semantic-ui-react';
-import { formatDate } from '../helper';
+import PropTypes from 'prop-types';
+import { List, Popup, Label } from 'semantic-ui-react';
+import MovieIcon from './MovieIcon';
+import { formatDate, isUpcoming } from '../helper';
 
+/**
+ * Basic MovieItem Component that deplays an item.
+ *
+ * @class      MovieItem (name)
+ */
 class MovieItem extends React.Component {
-  state = {
-    loading: false,
+  static propTypes = {
+    poster_path: PropTypes.string.isRequired,
+    release_date: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+    overview: PropTypes.string.isRequired,
   };
 
   handleClick = f => {
@@ -12,44 +22,29 @@ class MovieItem extends React.Component {
     f();
   };
 
+  renderUpcoming = () => {
+    if (isUpcoming(this.props.release_date)) {
+      return (
+        <Label basic size="mini" color="green">
+          Upcoming
+        </Label>
+      );
+    }
+
+    return (
+      <Label basic size="mini" color="red">
+        In Theaters
+      </Label>
+    );
+  };
+
   render() {
-    const {
-      poster_path,
-      release_date,
-      title,
-      overview,
-      onMovieAdd,
-      onMovieRemove,
-    } = this.props;
+    const { poster_path, release_date, title, overview, moveable } = this.props;
 
     return (
       <List.Item>
-        <List.Content floated="right">
-          {onMovieAdd && (
-            <Button
-              circular
-              icon="plus"
-              {...this.state}
-              onClick={() => this.handleClick(onMovieAdd)}
-            />
-          )}
-          {onMovieRemove && (
-            <Button
-              circular
-              icon="minus"
-              {...this.state}
-              onClick={() => this.handleClick(onMovieRemove)}
-            />
-          )}
-        </List.Content>
-        <Image
-          src={
-            poster_path
-              ? `${process.env.REACT_APP_MOVIE_IMAGE}/${poster_path}`
-              : `http://via.placeholder.com/32x52`
-          }
-          size="mini"
-        />
+        {moveable ? moveable : null}
+        <MovieIcon poster_path={poster_path} />
         <List.Content>
           <Popup
             trigger={<List.Header as="a">{title}</List.Header>}
@@ -59,9 +54,11 @@ class MovieItem extends React.Component {
           <List.Description as="a">
             Release Date: {formatDate(release_date)}
           </List.Description>
+          {this.renderUpcoming()}
         </List.Content>
       </List.Item>
     );
   }
-}
+} // MovieItem
+
 export default MovieItem;

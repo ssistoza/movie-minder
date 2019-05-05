@@ -4,6 +4,11 @@ import { FirebaseContext } from '../firebase';
 import MovieItem from './MovieItem';
 import upcomingMoviesJson from '../data/upcoming';
 
+/**
+ * List of Movies using Firebase Context.
+ *
+ * @class      UpcomingList (name)
+ */
 class UpcomingList extends React.Component {
   static contextType = FirebaseContext;
 

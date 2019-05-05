@@ -1,6 +1,6 @@
 import React from 'react';
 import { withRouter } from 'react-router';
-import SignupForm from '../component/SignupForm';
+import SignupForm from '../component/withContext/SignupForm';
 import { FirebaseContext } from '../firebase';
 
 class Signup extends React.Component {

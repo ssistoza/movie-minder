@@ -5,7 +5,7 @@ import PaginationButtons from './PaginationButtons';
 
 /**
  * List of paginated movies.
- *  - Will determine how items should show on the page and pass it down.
+ * - DEFAULT PAGINATES at 10 perPage.
  * @class      PaginateMovieList (name)
  */
 class PaginateMovieList extends React.Component {

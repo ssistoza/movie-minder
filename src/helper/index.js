@@ -23,8 +23,13 @@ function formatDate(dateString) {
   return `${MONTH[monthNum]}, ${day} ${year}`;
 }
 
-function isUpcomingDate(currentDate, dateToBeChecked) {
-  let upcoming = currentDate < new Date(dateToBeChecked).getTime();
+function isUpcomingDate(dateToBeChecked) {
+  let upcoming = Date.now() < new Date(dateToBeChecked).getTime();
+  return upcoming;
+}
+
+function isUpcoming(dateToBeChecked) {
+  let upcoming = Date.now() < new Date(dateToBeChecked).getTime();
   return upcoming;
 }
 
@@ -32,4 +37,4 @@ function updateObject(oldObject, newValues) {
   return Object.assign({}, oldObject, newValues);
 }
 
-export { formatDate, updateObject, isUpcomingDate };
+export { formatDate, updateObject, isUpcomingDate, isUpcoming };

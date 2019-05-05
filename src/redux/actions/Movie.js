@@ -12,12 +12,18 @@ const recieveMovies = json => ({
 });
 
 // Thunk
-export const fetchMovies = page => async dispatch => {
+export const fetchMovies = page => async (dispatch, getState) => {
   dispatch(requestMovies());
   const url = `${process.env.REACT_APP_MOVIE_URL}&page=${page}`;
   const response = await fetch(url);
   const upcomingMovies = await response.json();
   dispatch(recieveMovies(upcomingMovies));
+  dispatch(
+    setMovieVisibility(
+      MoviesVisibilityFilter.SHOW_ALL,
+      getState().movieList.list
+    )
+  );
 };
 
 /* Retreive in { CRUD } */
@@ -43,7 +49,7 @@ export const setMovieVisibility = (visibility, list) => {
   return (dispatch, getState) => {
     const isUpcoming = getState().allMovies.movies.map(movie => ({
       id: movie.id,
-      isUpcoming: isUpcomingDate(Date.now(), movie.release_date),
+      isUpcoming: isUpcomingDate(movie.release_date),
     }));
 
     dispatch(visibilitySet(visibility, list, isUpcoming));
