@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, Button, Radio, Checkbox, Input } from 'semantic-ui-react';
+import { Form, Radio, Input } from 'semantic-ui-react';
 
 class SearchListForm extends React.Component {
   state = {
@@ -8,24 +8,22 @@ class SearchListForm extends React.Component {
   };
 
   handleSearch = (e, { name, value }) => {
-    this.setState({ [name]: value });
-    // this.handleSubmit();
+    this.setState({ [name]: value }, () => this.handleSubmit());
   };
 
   handleChange = (e, { name, value }) => {
-    this.setState({ [name]: value });
-    // this.handleSubmit();
+    this.setState({ [name]: value }, () => this.handleSubmit());
   };
 
   handleSubmit = evt => {
-    this.props.onSubmit(evt, this.state);
+    this.props.onAnyChange(evt, this.state);
   };
 
   render() {
     const { releaseDate, search } = this.state;
     return (
       <>
-        <Form onSubmit={this.handleSubmit}>
+        <Form>
           <Form.Field>
             <label>Search</label>
             <Input
@@ -42,29 +40,28 @@ class SearchListForm extends React.Component {
               control={Radio}
               name="releaseDate"
               label="Past"
-              value="past"
-              checked={releaseDate === 'past'}
+              value="SHOW_PAST"
+              checked={releaseDate === 'SHOW_PAST'}
               onChange={this.handleChange}
             />
             <Form.Field
               control={Radio}
               name="releaseDate"
               label="Upcoming"
-              value="upcoming"
-              checked={releaseDate === 'upcoming'}
+              value="SHOW_UPCOMING"
+              checked={releaseDate === 'SHOW_UPCOMING'}
               onChange={this.handleChange}
             />
             <Form.Field
               control={Radio}
               name="releaseDate"
               label="All"
-              value="all"
-              checked={releaseDate === 'all'}
+              value="SHOW_ALL"
+              checked={releaseDate === 'SHOW_ALL'}
               onChange={this.handleChange}
             />
           </Form.Group>
           {this.props.children}
-          <Button type="submit">Search</Button>
         </Form>
       </>
     );

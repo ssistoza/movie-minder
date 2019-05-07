@@ -14,16 +14,16 @@ class SearchMovieForm extends React.Component {
     // this.props.onSubmit({...this.state});
   };
 
-  handleSubmit = (evt, data) => {
-    console.log(evt);
-    console.log(data);
+  handleChanges = (evt, data) => {
+    const conditions = { ...data, ...this.state };
+    this.props.onSearch(conditions);
   };
 
   render() {
     const { watched, notWatched } = this.state;
 
     return (
-      <SearchListForm onSubmit={this.handleSubmit}>
+      <SearchListForm onAnyChange={this.handleChanges}>
         <Form.Group inline>
           <label>Filter by Watched</label>
           <Form.Field

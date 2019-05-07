@@ -1,7 +1,7 @@
 import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import EditableMovieItem from '../component/EditableMovieItem';
+import AddibleMovieItem from '../component/AddibleMovieItem';
 import PaginateMovieList from '../component/PaginateMovieList';
 import * as AllPossibleActions from '../redux/actions';
 
@@ -51,7 +51,7 @@ class Movies extends React.Component {
         >
           {/* Replace with list for unpaginated version.*/}
           {movies.map(movie => (
-            <EditableMovieItem
+            <AddibleMovieItem
               key={movie.id}
               {...movie}
               onMovieAdd={() => this.addMovie(movie)}

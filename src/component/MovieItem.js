@@ -11,31 +11,10 @@ import { formatDate, isUpcoming } from '../helper';
  */
 class MovieItem extends React.Component {
   static propTypes = {
-    poster_path: PropTypes.string.isRequired,
+    poster_path: PropTypes.string,
     release_date: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
     overview: PropTypes.string.isRequired,
-  };
-
-  handleClick = f => {
-    this.setState({ loading: true });
-    f();
-  };
-
-  renderUpcoming = () => {
-    if (isUpcoming(this.props.release_date)) {
-      return (
-        <Label basic size="mini" color="green">
-          Upcoming
-        </Label>
-      );
-    }
-
-    return (
-      <Label basic size="mini" color="red">
-        In Theaters
-      </Label>
-    );
   };
 
   render() {
@@ -50,11 +29,17 @@ class MovieItem extends React.Component {
             trigger={<List.Header as="a">{title}</List.Header>}
             content={overview}
           />
-
-          <List.Description as="a">
+          <List.Description>
             Release Date: {formatDate(release_date)}
           </List.Description>
-          {this.renderUpcoming()}
+          <Label
+            basic
+            size="mini"
+            color={isUpcoming(release_date) ? 'blue' : 'red'}
+          >
+            {isUpcoming(release_date) ? 'Upcoming' : 'In Theaters'}
+          </Label>
+          {this.props.children}
         </List.Content>
       </List.Item>
     );

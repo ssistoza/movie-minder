@@ -13,7 +13,7 @@ import {
   addMovieToList,
   fetchList,
   deleteMovieFromList,
-  searchList,
+  filterList,
 } from './List';
 import {
   REQUEST_MOVIES,
@@ -48,6 +48,6 @@ export { fetchList, fetchMovies };
 // Delete
 export { deleteMovieFromList };
 // Custom
-export { searchList };
+export { filterList };
 export { setMovieVisibility, setPaginationPage };
 export { signinWithFirebase, signoutWithFirebase, checkIfSignedIn };

@@ -1,8 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { List } from 'semantic-ui-react';
-import EditableMovieItem from '../component/EditableMovieItem';
-import { fetchList, deleteMovieFromList } from '../redux/actions';
+import RemovableMovieItem from '../component/RemovableMovieItem';
+import {
+  fetchList,
+  deleteMovieFromList,
+  setToggleMovie,
+} from '../redux/actions/List';
 
 /**
  * List of user movies.
@@ -29,9 +33,10 @@ class UsersMovies extends React.Component {
     }
   }
 
-  removeMovie = docId => {
-    const { dispatch } = this.props;
-    dispatch(deleteMovieFromList(docId));
+  removeMovie = docId => this.props.dispatch(deleteMovieFromList(docId));
+  toggleWatched = (docId, isWatched) => {
+    const watched = isWatched ? true : false;
+    this.props.dispatch(setToggleMovie(docId, !watched));
   };
 
   render() {
@@ -40,9 +45,12 @@ class UsersMovies extends React.Component {
     return (
       <List divided relaxed>
         {list.map(movie => (
-          <EditableMovieItem
+          <RemovableMovieItem
             key={movie.docId}
             {...movie}
+            onToggleWatched={() =>
+              this.toggleWatched(movie.docId, movie.watched)
+            }
             onMovieRemove={() => this.removeMovie(movie.docId)}
           />
         ))}
@@ -52,7 +60,11 @@ class UsersMovies extends React.Component {
 } // UsersMovies
 
 function mapStateToProps(state) {
-  const movieList = state.movieList;
+  let movieList = state.movieList;
+
+  // find where isHidden is false!
+  const list = movieList.list.filter(i => !i.isHidden);
+  movieList = Object.assign({}, movieList, { list });
   return { movieList };
 }
 

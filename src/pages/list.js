@@ -2,7 +2,7 @@ import React from 'react';
 import { Grid } from 'semantic-ui-react';
 import PageTitle from '../component/PageTitle';
 import SegmentLoader from '../component/SegmentLoader';
-import SearchForm from '../component/SearchForm';
+import ListSearchFormContainer from '../container/ListSearchFormContainer';
 import UsersMovies from '../container/UsersMovies';
 
 class List extends React.Component {
@@ -18,7 +18,7 @@ class List extends React.Component {
           </Grid.Column>
           <Grid.Column width={8}>
             <SegmentLoader>
-              <SearchForm />
+              <ListSearchFormContainer />
             </SegmentLoader>
           </Grid.Column>
         </Grid.Row>

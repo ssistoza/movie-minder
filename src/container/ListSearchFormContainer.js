@@ -1,14 +1,30 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import SearchMovieForm from '../component/SearchMovieForm';
+import { filterList } from '../redux/actions';
 
 /**
- * Class for list search form container.
+ * List of user movies.
  *
  * @class      ListSearchFormContainer (name)
  */
 class ListSearchFormContainer extends React.Component {
+  componentWillUnmount() {
+    console.log('unmounting...');
+  }
+
+  search = data => {
+    this.props.dispatch(filterList(data));
+  };
+
   render() {
-    return <div>ListSearchFormContainer Component! </div>;
+    return <SearchMovieForm onSearch={this.search} />;
   }
 } // ListSearchFormContainer
 
-export default ListSearchFormContainer;
+function mapStateToProps(state) {
+  const movieList = state.movieList;
+  return { movieList };
+}
+
+export default connect(mapStateToProps)(ListSearchFormContainer);

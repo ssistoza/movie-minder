@@ -1,5 +1,6 @@
 import Firebase from '../../firebase';
 import { setMovieVisibility, MoviesVisibilityFilter } from './';
+import { isUpcomingDate } from '../../helper';
 
 /* Create in { CRUD } */
 export const ADD_TO_LIST = 'ADD_TO_LIST';
@@ -22,6 +23,7 @@ export const addMovieToList = newMovie => async (dispatch, getState) => {
   const response = await Firebase.db
     .collection('movie-list')
     .add({ ...newMovie });
+
   dispatch(addedToList(response.id));
   dispatch(
     setMovieVisibility(
@@ -108,9 +110,59 @@ export const LIST_VISIBILITY = {
   SHOW_UNWATCHED: 'SHOW_UNWATCHED',
 };
 
-export const searchList = (searchText, movieVisibility, listVisibility) => ({
+const searchList = searchText => ({
   type: SEARCH_LIST,
   data: searchText,
-  movieVisibility,
-  listVisibility,
 });
+
+const userMovieVisibilitySet = (visibility, isUpcoming) => ({
+  type: SEARCH_LIST,
+  movieVisibility: visibility,
+  isUpcoming,
+});
+
+export const filterList = filter => {
+  return (dispatch, getState) => {
+    const { search, releaseDate, watched, unWatched } = filter;
+    const isUpcoming = getState().movieList.list.map(movie => ({
+      id: movie.id,
+      isUpcoming: isUpcomingDate(movie.release_date),
+    }));
+
+    // Sets searchText;
+    if (search.length > 1) {
+      console.log('searching...');
+    }
+
+    console.log(releaseDate);
+
+    // Sets Movie Visibillity.
+    dispatch(userMovieVisibilitySet(releaseDate, isUpcoming));
+    // Sets Watched or Unwatched.
+    //     let listVisibility = LIST_VISIBILITY.SHOW_ALL;
+    //     if (watched && !unWatched) {
+    //       listVisibility = LIST_VISIBILITY.SHOW_WATCHED;
+    //     } else if (!watched && unWatched) {
+    //       listVisibility = LIST_VISIBILITY.SHOW_UNWATCHED;
+    //     }
+    //
+    //     return searchList(search, releaseDate, listVisibility);
+  };
+};
+
+export const TOGGLE_WATCHED = 'TOGGLE_WATCHED';
+
+const toggleMovie = (docId, watched) => ({
+  type: TOGGLE_WATCHED,
+  data: { docId, watched },
+});
+
+export const setToggleMovie = (docId, watched) => {
+  return async (dispatch, getState) => {
+    dispatch(toggleMovie(docId, watched));
+    await Firebase.db
+      .collection('movie-list')
+      .doc(docId)
+      .set({ watched }, { merge: true });
+  };
+};
