@@ -110,10 +110,10 @@ export const LIST_VISIBILITY = {
   SHOW_UNWATCHED: 'SHOW_UNWATCHED',
 };
 
-const searchList = searchText => ({
-  type: SEARCH_LIST,
-  data: searchText,
-});
+// const searchList = searchText => ({
+//   type: SEARCH_LIST,
+//   data: searchText,
+// });
 
 const userMovieVisibilitySet = (visibility, isUpcoming) => ({
   type: SEARCH_LIST,
@@ -123,7 +123,7 @@ const userMovieVisibilitySet = (visibility, isUpcoming) => ({
 
 export const filterList = filter => {
   return (dispatch, getState) => {
-    const { search, releaseDate, watched, unWatched } = filter;
+    const { search, releaseDate } = filter;
     const isUpcoming = getState().movieList.list.map(movie => ({
       id: movie.id,
       isUpcoming: isUpcomingDate(movie.release_date),
