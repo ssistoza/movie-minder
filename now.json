@@ -1,7 +1,7 @@
 {
   "version": 2,
   "name": "movie-minder",
-  "alias": ["ssistoza.dev"],
+  "alias": ["ssistoza.dev", "movie-minder"],
   "routes": [
     {
       "src": "/static/(.*)",

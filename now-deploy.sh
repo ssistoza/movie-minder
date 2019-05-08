@@ -14,4 +14,4 @@ cd build
 cat now.json
 
 # Run now!
-npx now --token=$NOW_TOKEN
+npx now --token=$NOW_TOKEN --target production
