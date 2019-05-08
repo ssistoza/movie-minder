@@ -2,6 +2,7 @@ language: node_js
 node_js:
   - 'lts/*'
 cache:
+  yarn: true
   directories:
     - node_modules
 script:
@@ -13,8 +14,3 @@ deploy:
   script: bash ./now-deploy.sh
   on:
     branch: master
-#   github-token: $GH_TOKEN
-#   keep-history: true
-#   local-dir: build/
-#   on:
-#     branch: master
