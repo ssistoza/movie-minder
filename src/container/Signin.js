@@ -12,13 +12,19 @@ import LoginForm from '../component/LoginForm';
  * @class      Signin (name)
  */
 class Signin extends React.Component {
-  // If user has logged move away from this page.
   componentDidMount() {
-    this.props.dispatch(
-      signinWithFirebase('shane62za@gmail.com', 'development')
-    );
     const { authenticated, history } = this.props;
-    if (authenticated) history.push('/home');
+    if (authenticated) {
+      history.push('/home');
+    } else {
+      // TODO : START REMOVE THIS.
+      this.props.dispatch(
+        signinWithFirebase(
+          process.env.REACT_APP_LOGIN_EMAIL,
+          process.env.REACT_APP_LOGIN_PWD
+        )
+      );
+    }
   }
 
   // Routes to Homepage once user has logged in.
