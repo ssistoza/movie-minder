@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { signoutWithFirebase } from '../redux/actions';
+import { signoutWithFirebase } from '../redux/actions/User';
 
 class Signout extends React.Component {
   componentDidMount() {

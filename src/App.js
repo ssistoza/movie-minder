@@ -14,7 +14,7 @@ import Home from './pages/home';
 import List from './pages/list';
 import Movies from './pages/movies';
 
-import { checkIfSignedIn } from './redux/actions';
+import { checkIfSignedIn } from './redux/actions/User';
 import './App.css';
 
 /**

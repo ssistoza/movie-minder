@@ -1,4 +1,4 @@
-import { SIGN_IN, SIGNED_IN, SIGN_OUT, SIGNED_OUT } from '../actions';
+import { SIGN_IN, SIGNED_IN, SIGN_OUT, SIGNED_OUT } from '../actions/User';
 
 const INITIAL_STATE = false;
 

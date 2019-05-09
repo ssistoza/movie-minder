@@ -1,5 +1,5 @@
 import Firebase from '../../firebase';
-import { setMovieVisibility, MoviesVisibilityFilter } from './';
+import { setMovieVisibility, MoviesVisibilityFilter } from './Movie';
 import { isUpcomingDate } from '../../helper';
 
 /* Create in { CRUD } */
@@ -121,9 +121,14 @@ const userMovieVisibilitySet = (visibility, isUpcoming) => ({
   isUpcoming,
 });
 
+const userWatchedVisibilitySet = visibility => ({
+  type: SEARCH_LIST,
+  watchedVisibility: visibility,
+});
+
 export const filterList = filter => {
   return (dispatch, getState) => {
-    const { search, releaseDate } = filter;
+    const { search, releaseDate, watched, notWatched } = filter;
     const isUpcoming = getState().movieList.list.map(movie => ({
       id: movie.id,
       isUpcoming: isUpcomingDate(movie.release_date),
@@ -134,19 +139,18 @@ export const filterList = filter => {
       console.log('searching...');
     }
 
-    console.log(releaseDate);
-
     // Sets Movie Visibillity.
     dispatch(userMovieVisibilitySet(releaseDate, isUpcoming));
-    // Sets Watched or Unwatched.
-    //     let listVisibility = LIST_VISIBILITY.SHOW_ALL;
-    //     if (watched && !unWatched) {
-    //       listVisibility = LIST_VISIBILITY.SHOW_WATCHED;
-    //     } else if (!watched && unWatched) {
-    //       listVisibility = LIST_VISIBILITY.SHOW_UNWATCHED;
-    //     }
-    //
-    //     return searchList(search, releaseDate, listVisibility);
+
+    // Sets Watched Visibility
+    let listVibsibility = LIST_VISIBILITY.SHOW_ALL;
+    if (!watched && notWatched) {
+      listVibsibility = LIST_VISIBILITY.SHOW_UNWATCHED;
+    } else if (watched && !notWatched) {
+      listVibsibility = LIST_VISIBILITY.SHOW_WATCHED;
+    }
+
+    dispatch(userWatchedVisibilitySet(listVibsibility));
   };
 };
 

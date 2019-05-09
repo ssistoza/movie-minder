@@ -6,7 +6,7 @@ import {
   fetchList,
   deleteMovieFromList,
   setToggleMovie,
-} from '../redux/actions/List';
+} from '../redux/actions';
 
 /**
  * List of user movies.

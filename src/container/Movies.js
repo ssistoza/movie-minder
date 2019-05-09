@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import AddibleMovieItem from '../component/AddibleMovieItem';
 import PaginateMovieList from '../component/PaginateMovieList';
-import * as AllPossibleActions from '../redux/actions';
+import * as AllActionCreators from '../redux/actions';
 
 class Movies extends React.Component {
   componentDidMount() {
@@ -73,7 +73,9 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return { actions: bindActionCreators(AllPossibleActions, dispatch) };
+  return {
+    actions: bindActionCreators(AllActionCreators, dispatch),
+  };
 }
 
 export default connect(

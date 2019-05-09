@@ -10,7 +10,14 @@ import { filterList } from '../redux/actions';
  */
 class ListSearchFormContainer extends React.Component {
   componentWillUnmount() {
-    console.log('unmounting...');
+    this.props.dispatch(
+      filterList({
+        search: '',
+        releaseDate: 'SHOW_ALL',
+        watched: true,
+        notWatched: true,
+      })
+    );
   }
 
   search = data => {

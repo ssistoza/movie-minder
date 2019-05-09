@@ -7,7 +7,7 @@ import {
   REMOVED_FROM_LIST,
   SEARCH_LIST,
   TOGGLE_WATCHED,
-} from '../actions/List';
+} from '../actions';
 
 import { updateObject } from '../../helper';
 
@@ -31,9 +31,8 @@ function removedFromList(state, action) {
   return updateObject(state, { list });
 }
 
-function filterList(state, action) {
-  let list = state.list.map(movie => updateObject(movie, { isHidden: false }));
-
+function movieVisibility(state, action) {
+  let list = state.list;
   switch (action.movieVisibility) {
     case 'SHOW_UPCOMING':
       list = list.map(movie => {
@@ -71,6 +70,57 @@ function filterList(state, action) {
     default:
       return state;
   }
+}
+
+function watchedVisibility(state, action) {
+  let list = state.list;
+  switch (action.watchedVisibility) {
+    case 'SHOW_UNWATCHED':
+      list = list.map(movie => {
+        if (movie.watched && !movie.isHidden) {
+          return updateObject(movie, { isHidden: true });
+        } else {
+          return movie;
+        }
+      });
+      return updateObject(state, {
+        list,
+        watchedVisibility: action.watchedVisibility,
+      });
+    case 'SHOW_WATCHED':
+      list = list.map(movie => {
+        if (!movie.watched && !movie.isHidden) {
+          return updateObject(movie, { isHidden: true });
+        } else {
+          return movie;
+        }
+      });
+      return updateObject(state, {
+        list,
+        watchedVisibility: action.watchedVisibility,
+      });
+    case 'SHOW_ALL':
+      return updateObject(state, {
+        list,
+        movieVisibility: action.movieVisibility,
+      });
+    default:
+      return state;
+  }
+}
+
+function filterList(state, action) {
+  let list = state.list.map(movie => updateObject(movie, { isHidden: false }));
+  let newState = updateObject(state, { list });
+
+  if (action.movieVisibility) {
+    newState = movieVisibility(newState, action);
+  }
+  if (action.watchedVisibility) {
+    newState = watchedVisibility(newState, action);
+  }
+
+  return newState;
 }
 
 export const movieList = (state = { list: [], isFetching: true }, action) => {

@@ -7,13 +7,10 @@ import rootReducer from './reducers/index';
 const loggerMiddleware = createLogger();
 
 export default function configureStore(preloadedState) {
-  let middlewares = [];
-
-  if (process.env !== 'production') {
-    middlewares = [thunkMiddleware];
-  } else {
-    middlewares = [thunkMiddleware, loggerMiddleware];
-  }
+  let middlewares =
+    process.env !== 'production'
+      ? [thunkMiddleware, loggerMiddleware]
+      : [thunkMiddleware];
 
   const middlewareEnhancer = applyMiddleware(...middlewares);
 

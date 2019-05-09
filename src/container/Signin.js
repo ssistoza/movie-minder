@@ -2,7 +2,7 @@ import React from 'react';
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import { compose } from 'recompose';
-import { signinWithFirebase } from '../redux/actions';
+import { signinWithFirebase } from '../redux/actions/User';
 import LoginForm from '../component/LoginForm';
 
 /** CONTAINER
