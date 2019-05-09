@@ -41,7 +41,10 @@
     ]
   },
   "devDependencies": {
+    "enzyme-adapter-react-16": "^1.12.1",
+    "react-test-renderer": "^16.8.6",
     "create-index": "^2.4.0",
+    "enzyme": "^3.9.0",
     "gh-pages": "^2.0.1",
     "now": "^15.0.11",
     "recompose": "^0.30.0",
