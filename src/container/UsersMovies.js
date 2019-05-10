@@ -11,21 +11,11 @@ import { deleteMovieFromList, setToggleMovie } from '../redux/actions';
  */
 class UsersMovies extends React.Component {
   componentDidMount() {
-    if (!this.props.movieList.isFetching) {
-      this.props.onLoad(false);
-    } else {
-      this.props.onLoad(true);
-    }
-
-    // dispatch(fetchList());
+    this.props.onLoad(this.props.movieList.isFetching);
   }
 
   componentDidUpdate() {
-    if (!this.props.movieList.isFetching) {
-      this.props.onLoad(false);
-    } else {
-      this.props.onLoad(true);
-    }
+    this.props.onLoad(this.props.movieList.isFetching);
   }
 
   removeMovie = docId => this.props.dispatch(deleteMovieFromList(docId));

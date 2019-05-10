@@ -14,6 +14,8 @@ import {
 import { movieVisibility } from './Filter';
 import { updateObject } from '../../helper';
 
+const INITIAL_STATE = { list: [], isFetching: true, paginationPage: 1 };
+
 function receivedList(state, action) {
   let list = [];
 
@@ -81,7 +83,7 @@ function filterList(state, action) {
   return newState;
 }
 
-export const movieList = (state = { list: [], isFetching: true }, action) => {
+export const movieList = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case REQUEST_LIST:
       return updateObject(state, { isFetching: true });

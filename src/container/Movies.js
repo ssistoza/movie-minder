@@ -8,19 +8,11 @@ import * as AllActionCreators from '../redux/actions';
 
 class Movies extends React.Component {
   componentDidMount() {
-    if (!this.props.allMovies.isFetching) {
-      this.props.onLoad(false);
-    } else {
-      this.props.onLoad(true);
-    }
+    this.props.onLoad(this.props.allMovies.isFetching);
   }
 
-  componentDidUpdate(prevProps) {
-    if (!this.props.allMovies.isFetching) {
-      this.props.onLoad(false);
-    } else {
-      this.props.onLoad(true);
-    }
+  componentDidUpdate() {
+    this.props.onLoad(this.props.allMovies.isFetching);
   }
 
   getMoreMovies = () => {
@@ -47,22 +39,20 @@ class Movies extends React.Component {
     }
 
     return (
-      <>
-        <PaginateMovieList
-          onPageChange={setPaginationPage}
-          fetchMovies={this.getMoreMovies}
-          paginationPage={paginationPage}
-        >
-          {/* Replace with list for unpaginated version.*/}
-          {movies.map(movie => (
-            <AddibleMovieItem
-              key={movie.id}
-              {...movie}
-              onMovieAdd={() => this.addMovie(movie)}
-            />
-          ))}
-        </PaginateMovieList>
-      </>
+      <PaginateMovieList
+        onPageChange={setPaginationPage}
+        fetchMovies={this.getMoreMovies}
+        paginationPage={paginationPage}
+      >
+        {/* Replace with list for unpaginated version.*/}
+        {movies.map(movie => (
+          <AddibleMovieItem
+            key={movie.id}
+            {...movie}
+            onMovieAdd={() => this.addMovie(movie)}
+          />
+        ))}
+      </PaginateMovieList>
     );
   }
 } // Movies

@@ -1,37 +1,35 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Button } from 'semantic-ui-react';
+import { fetchSearchMovie } from '../redux/actions';
 import SearchMovieForm from '../component/SearchMovieForm';
-import { filterList } from '../redux/actions';
 
-/**
- * Searches from MovieDB API
- *
- * @class      MovieSearchFormContainer (name)
- */
 class MovieSearchFormContainer extends React.Component {
-  componentWillUnmount() {
-    this.props.dispatch(
-      filterList({
-        search: '',
-        releaseDate: 'SHOW_ALL',
-        watched: true,
-        notWatched: true,
-      })
-    );
-  }
-
-  search = data => {
-    this.props.dispatch(filterList(data));
+  state = {
+    search: '',
   };
 
+  componentWillUnmount() {
+    // this.props.dispatch(resetSearch());
+  }
+
+  search = (evt, { search }) => this.setState({ search });
+  submit = () => this.props.dispatch(fetchSearchMovie(this.state.search));
+
   render() {
-    return <SearchMovieForm onSearch={this.search} />;
+    return (
+      <SearchMovieForm onAnyChange={this.search}>
+        <Button primary onClick={this.submit}>
+          Submit
+        </Button>
+      </SearchMovieForm>
+    );
   }
 } // MovieSearchFormContainer
 
 function mapStateToProps(state) {
-  const movieList = state.movieList;
-  return { movieList };
+  const movieResults = state.movieResults;
+  return { movieResults };
 }
 
 export default connect(mapStateToProps)(MovieSearchFormContainer);

@@ -1,53 +1,41 @@
 import React from 'react';
-import { Form, Checkbox } from 'semantic-ui-react';
-import SearchListForm from './SearchListForm';
+import PropTypes from 'prop-types';
+import { Form, Input } from 'semantic-ui-react';
 
 class SearchMovieForm extends React.Component {
   state = {
     search: '',
-    movieFilter: 'SHOW_ALL',
-    watched: true,
-    notWatched: true,
   };
 
-  toggle = (evt, data) => {
-    const { name, checked } = data;
-    this.setState({ [name]: checked }, () => {
-      this.props.onSearch({ ...this.state });
-    });
-  };
+  handleChange = (e, { name, value }) =>
+    this.setState({ [name]: value }, () => this.handleSubmit());
 
-  handleChanges = (evt, data) => {
-    this.setState({ ...data }, () => {
-      this.props.onSearch(this.state);
-    });
-  };
+  handleSubmit = evt => this.props.onAnyChange(evt, this.state);
 
   render() {
-    const { watched, notWatched } = this.state;
-
+    const { search } = this.state;
     return (
-      <SearchListForm onAnyChange={this.handleChanges}>
-        <Form.Group inline>
-          <label>Filter by Watched</label>
-          <Form.Field
-            name="watched"
-            control={Checkbox}
-            label="Watched"
-            checked={watched}
-            onChange={this.toggle}
-          />
-          <Form.Field
-            name="notWatched"
-            control={Checkbox}
-            label="Not Watched"
-            checked={notWatched}
-            onChange={this.toggle}
-          />
-        </Form.Group>
-      </SearchListForm>
+      <>
+        <Form>
+          <Form.Field>
+            <label>Search</label>
+            <Input
+              placeholder="Search..."
+              type="text"
+              name="search"
+              onChange={this.handleChange}
+              value={search}
+            />
+          </Form.Field>
+          {this.props.children}
+        </Form>
+      </>
     );
   }
 } // SearchMovieForm
+
+SearchMovieForm.propTypes = {
+  onAnyChange: PropTypes.func.isRequired,
+};
 
 export default SearchMovieForm;

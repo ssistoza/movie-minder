@@ -18,10 +18,6 @@ export const fetchMovies = page => async (dispatch, getState) => {
   dispatch(recieveMovies(upcomingMovies));
 };
 
-/* Retreive in { CRUD } */
-/* Update in { CRUD } */
-/* Delete in { CRUD } */
-
 /* Customizations */
 export const HIDE_MOVIES_INLIST = 'HIDE_MOVIES_INLIST';
 const hideMoviesInList = movieIds => ({

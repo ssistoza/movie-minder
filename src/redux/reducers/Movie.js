@@ -23,17 +23,12 @@ function receivedMovies(state, action) {
   }));
 
   return updateObject(state, {
-    needsFiltering: true,
     isFetching: false,
     lastUpdated: action.received,
     movies: [...state.movies, ...arrayOfData],
     apiPage: action.data.page,
     totalPage: action.data.total_pages,
   });
-}
-
-function setPaginationPage(state, action) {
-  return updateObject(state, { paginationPage: action.data });
 }
 
 export const allMovies = (state = INITIAL_STATE, action) => {
@@ -51,7 +46,7 @@ export const allMovies = (state = INITIAL_STATE, action) => {
       });
     }
     case SET_PAGINATION_PAGE:
-      return setPaginationPage(state, action);
+      return updateObject(state, { paginationPage: action.data });
     case HIDE_MOVIES_INLIST: {
       let movies = state.movies.map(i =>
         action.data.includes(i.id)

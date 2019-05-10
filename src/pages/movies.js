@@ -2,8 +2,8 @@ import React from 'react';
 import { Grid } from 'semantic-ui-react';
 import PageTitle from '../component/PageTitle';
 import SegmentLoader from '../component/SegmentLoader';
-import MoviesContainer from '../container/Movies';
-import SearchMovieForm from '../component/SearchMovieForm';
+import SearchMovies from '../container/SearchMovies';
+import MovieSearchFormContainer from '../container/MovieSearchFormContainer';
 
 class Movies extends React.Component {
   render() {
@@ -12,11 +12,13 @@ class Movies extends React.Component {
         <PageTitle title="Welcome to the Homepage" />
         <Grid.Row>
           <Grid.Column width={8}>
-            <SearchMovieForm />
+            <SegmentLoader>
+              <MovieSearchFormContainer />
+            </SegmentLoader>
           </Grid.Column>
           <Grid.Column width={8}>
             <SegmentLoader>
-              <MoviesContainer />
+              <SearchMovies />
             </SegmentLoader>
           </Grid.Column>
         </Grid.Row>
