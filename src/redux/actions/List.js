@@ -1,11 +1,9 @@
-import equals from 'validator/lib/equals';
 import Firebase from '../../firebase';
 import {
   SET_USERMOVIES_VISIBILITY,
   MoviesVisibilityFilter,
   setMovieVisibility,
 } from './Filter';
-import { hideMoviesInList } from './Movie';
 
 /* Create in { CRUD } */
 export const ADD_TO_LIST = 'ADD_TO_LIST';

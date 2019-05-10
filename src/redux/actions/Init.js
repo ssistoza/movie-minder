@@ -2,8 +2,6 @@ import {
   fetchList,
   fetchMovies,
   resetListVisibility,
-  SET_USERMOVIES_VISIBILITY,
-  MoviesVisibilityFilter,
   hideMovies,
 } from './index';
 
