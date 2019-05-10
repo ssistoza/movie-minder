@@ -1,22 +1,26 @@
 import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+
 import AddibleMovieItem from '../component/AddibleMovieItem';
 import PaginateMovieList from '../component/PaginateMovieList';
 import * as AllActionCreators from '../redux/actions';
 
 class Movies extends React.Component {
   componentDidMount() {
-    const {
-      onLoad,
-      actions: { fetchMovies },
-    } = this.props;
-    onLoad(true);
-    fetchMovies();
+    if (!this.props.allMovies.isFetching) {
+      this.props.onLoad(false);
+    } else {
+      this.props.onLoad(true);
+    }
   }
 
   componentDidUpdate(prevProps) {
-    if (!this.props.allMovies.isFetching) this.props.onLoad(false);
+    if (!this.props.allMovies.isFetching) {
+      this.props.onLoad(false);
+    } else {
+      this.props.onLoad(true);
+    }
   }
 
   getMoreMovies = () => {

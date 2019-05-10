@@ -3,8 +3,9 @@ import {
   RECEIVE_MOVIES,
   SET_MOVIES_VISIBILITY,
   SET_PAGINATION_PAGE,
+  HIDE_MOVIES_INLIST,
 } from '../actions';
-
+import { movieVisibility } from './Filter';
 import { updateObject } from '../../helper';
 
 const INITIAL_STATE = {
@@ -31,49 +32,6 @@ function receivedMovies(state, action) {
   });
 }
 
-function setVisibilityFilter(state, action) {
-  const list = action.data.map(i => i.id);
-  let movies = state.movies.map(i =>
-    list.includes(i.id)
-      ? updateObject(i, { isHidden: true })
-      : updateObject(i, { isHidden: false })
-  ); // Regardless HIDE any movies part of the list.
-
-  switch (action.visibility) {
-    case 'SHOW_ALL':
-      break;
-    case 'SHOW_PAST':
-      movies = movies.map(i => {
-        if (!action.isUpcoming.filter(j => j.id === i.id).shift().isUpcoming) {
-          return i;
-        } else {
-          if (i.isHidden) {
-            return i;
-          }
-          return updateObject(i, { isHidden: true });
-        }
-      });
-      break;
-    case 'SHOW_UPCOMING':
-    default:
-      movies = movies.map(i => {
-        if (action.isUpcoming.filter(j => j.id === i.id).shift().isUpcoming) {
-          return i;
-        } else {
-          if (i.isHidden) {
-            return i;
-          }
-          return updateObject(i, { isHidden: true });
-        }
-      });
-  }
-  return updateObject(state, {
-    needsFiltering: false,
-    movies,
-    visibility: action.visibility,
-  });
-}
-
 function setPaginationPage(state, action) {
   return updateObject(state, { paginationPage: action.data });
 }
@@ -84,10 +42,24 @@ export const allMovies = (state = INITIAL_STATE, action) => {
       return updateObject(state, { isFetching: true });
     case RECEIVE_MOVIES:
       return receivedMovies(state, action);
-    case SET_MOVIES_VISIBILITY:
-      return setVisibilityFilter(state, action);
+    case SET_MOVIES_VISIBILITY: {
+      let movies = state.movies;
+      movies = movieVisibility(movies, action);
+      return updateObject(state, {
+        movies,
+        movieVisibility: action.movieVisibility,
+      });
+    }
     case SET_PAGINATION_PAGE:
       return setPaginationPage(state, action);
+    case HIDE_MOVIES_INLIST: {
+      let movies = state.movies.map(i =>
+        action.data.includes(i.id)
+          ? updateObject(i, { isHidden: true })
+          : updateObject(i, { isHidden: false })
+      ); // Regardless HIDE any movies part of the list.
+      return updateObject(state, { movies });
+    }
     default:
       return state;
   }

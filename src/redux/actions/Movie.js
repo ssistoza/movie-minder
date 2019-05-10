@@ -1,5 +1,3 @@
-import { isUpcomingDate } from '../../helper';
-
 export const REQUEST_MOVIES = 'REQUEST_MOVIES';
 export const RECEIVE_MOVIES = 'RECEIVE_MOVIES';
 
@@ -18,12 +16,6 @@ export const fetchMovies = page => async (dispatch, getState) => {
   const response = await fetch(url);
   const upcomingMovies = await response.json();
   dispatch(recieveMovies(upcomingMovies));
-  dispatch(
-    setMovieVisibility(
-      MoviesVisibilityFilter.SHOW_ALL,
-      getState().movieList.list
-    )
-  );
 };
 
 /* Retreive in { CRUD } */
@@ -31,29 +23,16 @@ export const fetchMovies = page => async (dispatch, getState) => {
 /* Delete in { CRUD } */
 
 /* Customizations */
-export const SET_MOVIES_VISIBILITY = 'SET_MOVIES_VISIBILITY';
-export const MoviesVisibilityFilter = {
-  SHOW_ALL: 'SHOW_ALL',
-  SHOW_UPCOMING: 'SHOW_UPCOMING',
-  SHOW_PAST: 'SHOW_PAST',
-};
-
-const visibilitySet = (visibility, list, isUpcoming) => ({
-  type: SET_MOVIES_VISIBILITY,
-  visibility,
-  data: list,
-  isUpcoming,
+export const HIDE_MOVIES_INLIST = 'HIDE_MOVIES_INLIST';
+const hideMoviesInList = movieIds => ({
+  type: HIDE_MOVIES_INLIST,
+  data: movieIds,
 });
 
-export const setMovieVisibility = (visibility, list) => {
-  return (dispatch, getState) => {
-    const isUpcoming = getState().allMovies.movies.map(movie => ({
-      id: movie.id,
-      isUpcoming: isUpcomingDate(movie.release_date),
-    }));
-
-    dispatch(visibilitySet(visibility, list, isUpcoming));
-  };
+// Thunk
+export const hideMovies = type => (dispatch, getState) => {
+  const movieIds = getState().movieList.list.map(movie => movie.id);
+  dispatch(hideMoviesInList(movieIds));
 };
 
 export const SET_PAGINATION_PAGE = 'SET_PAGINATION_PAGE';

@@ -3,6 +3,7 @@ import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import { compose } from 'recompose';
 import { signinWithFirebase } from '../redux/actions/User';
+import { init } from '../redux/actions';
 import LoginForm from '../component/LoginForm';
 
 /** CONTAINER
@@ -15,6 +16,7 @@ class Signin extends React.Component {
   componentDidMount() {
     const { authenticated, history } = this.props;
     if (authenticated) {
+      this.props.dispatch(init());
       history.push('/home');
     } else {
       // TODO : START REMOVE THIS.
@@ -30,7 +32,10 @@ class Signin extends React.Component {
   // Routes to Homepage once user has logged in.
   componentDidUpdate(prevProps) {
     const { authenticated, history } = this.props;
-    if (authenticated) history.push('/home');
+    if (authenticated) {
+      this.props.dispatch(init());
+      history.push('/home');
+    }
   }
 
   handleSignin = async event => {

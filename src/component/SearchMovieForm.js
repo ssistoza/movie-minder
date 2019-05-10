@@ -4,19 +4,23 @@ import SearchListForm from './SearchListForm';
 
 class SearchMovieForm extends React.Component {
   state = {
-    watched: false,
-    notWatched: false,
+    search: '',
+    movieFilter: 'SHOW_ALL',
+    watched: true,
+    notWatched: true,
   };
 
   toggle = (evt, data) => {
     const { name, checked } = data;
-    this.setState({ [name]: checked });
-    // this.props.onSubmit({...this.state});
+    this.setState({ [name]: checked }, () => {
+      this.props.onSearch({ ...this.state });
+    });
   };
 
   handleChanges = (evt, data) => {
-    const conditions = { ...data, ...this.state };
-    this.props.onSearch(conditions);
+    this.setState({ ...data }, () => {
+      this.props.onSearch(this.state);
+    });
   };
 
   render() {

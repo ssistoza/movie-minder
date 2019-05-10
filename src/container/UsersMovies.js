@@ -2,11 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { List } from 'semantic-ui-react';
 import RemovableMovieItem from '../component/RemovableMovieItem';
-import {
-  fetchList,
-  deleteMovieFromList,
-  setToggleMovie,
-} from '../redux/actions';
+import { deleteMovieFromList, setToggleMovie } from '../redux/actions';
 
 /**
  * List of user movies.
@@ -15,21 +11,20 @@ import {
  */
 class UsersMovies extends React.Component {
   componentDidMount() {
-    const {
-      dispatch,
-      onLoad,
-      movieList: { isFetching },
-    } = this.props;
-    if (isFetching) {
-      onLoad(true);
+    if (!this.props.movieList.isFetching) {
+      this.props.onLoad(false);
+    } else {
+      this.props.onLoad(true);
     }
 
-    dispatch(fetchList());
+    // dispatch(fetchList());
   }
 
   componentDidUpdate() {
     if (!this.props.movieList.isFetching) {
       this.props.onLoad(false);
+    } else {
+      this.props.onLoad(true);
     }
   }
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import SearchMovieForm from '../component/SearchMovieForm';
-import { filterList } from '../redux/actions';
+import { filterList, resetListVisibility } from '../redux/actions';
 
 /**
  * List of user movies.
@@ -10,20 +10,10 @@ import { filterList } from '../redux/actions';
  */
 class ListSearchFormContainer extends React.Component {
   componentWillUnmount() {
-    this.props.dispatch(
-      filterList({
-        search: '',
-        releaseDate: 'SHOW_ALL',
-        watched: true,
-        notWatched: true,
-      })
-    );
+    this.props.dispatch(resetListVisibility());
   }
 
-  search = data => {
-    this.props.dispatch(filterList(data));
-  };
-
+  search = data => this.props.dispatch(filterList(data));
   render() {
     return <SearchMovieForm onSearch={this.search} />;
   }
