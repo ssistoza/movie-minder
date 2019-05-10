@@ -3,7 +3,8 @@ import {
   SET_USERMOVIES_VISIBILITY,
   MoviesVisibilityFilter,
   setMovieVisibility,
-} from './Filter';
+  hideMovies,
+} from './index';
 
 /* Create in { CRUD } */
 export const ADD_TO_LIST = 'ADD_TO_LIST';
@@ -22,13 +23,7 @@ export const addMovieToList = newMovie => async (dispatch, getState) => {
 
   dispatch(addedToList(response.id));
 
-  dispatch(
-    setMovieVisibility(
-      SET_USERMOVIES_VISIBILITY,
-      MoviesVisibilityFilter.SHOW_ALL,
-      getState().movieList.list
-    )
-  );
+  dispatch(hideMovies());
 
   return response;
 };
