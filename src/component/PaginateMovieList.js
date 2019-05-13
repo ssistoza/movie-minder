@@ -6,8 +6,7 @@ import PaginationButtons from './PaginationButtons';
 
 /**
  * List of paginated movies.
- * - State will hold current paginated page.
- * - DEFAULT PAGINATES at 10 perPage.
+ * - DEFAULT: 10 per page.
  * @class      PaginateMovieList (name)
  */
 class PaginateMovieList extends React.Component {
@@ -17,7 +16,6 @@ class PaginateMovieList extends React.Component {
   };
 
   componentDidMount() {
-    // If there are only 2 pages. Fetch more.
     const { onNext } = this.props;
     const { paginationPage } = this.state;
 
@@ -57,7 +55,7 @@ class PaginateMovieList extends React.Component {
 
   totalPages = () => Math.ceil(this.props.children.length / this.state.perPage);
   render() {
-    const { children } = this.props;
+    const { children, totalResults } = this.props;
     const { paginationPage, perPage } = this.state;
 
     return (
@@ -69,7 +67,7 @@ class PaginateMovieList extends React.Component {
         </List>
         <PaginationButtons
           paginationPage={paginationPage}
-          totalPages={this.totalPages()}
+          totalPages={Math.ceil(totalResults / perPage)}
           onPrevClick={this.handlePreviousPage}
           onNextClick={this.handleNextPage}
         />
@@ -81,6 +79,7 @@ class PaginateMovieList extends React.Component {
 PaginateMovieList.propTypes = {
   onNext: PropTypes.func.isRequired,
   children: PropTypes.node.isRequired,
+  totalResults: PropTypes.number.isRequired,
 };
 
 export default PaginateMovieList;

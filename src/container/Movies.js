@@ -28,11 +28,9 @@ class Movies extends React.Component {
   };
 
   addMovie = movie => this.props.actions.addMovieToList(movie);
-
   render() {
     const {
-      actions: { setPaginationPage },
-      allMovies: { movies, paginationPage },
+      allMovies: { movies, totalResults },
     } = this.props;
 
     if (movies.length <= 0) {
@@ -40,8 +38,10 @@ class Movies extends React.Component {
     }
 
     return (
-      <PaginateMovieList onNext={this.getMoreMovies}>
-        {/* Replace with list for unpaginated version.*/}
+      <PaginateMovieList
+        totalResults={totalResults}
+        onNext={this.getMoreMovies}
+      >
         {movies.map(movie => (
           <AddibleMovieItem
             key={movie.id}

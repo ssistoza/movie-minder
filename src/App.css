@@ -27,3 +27,7 @@
 .feed-format {
   padding-left: 1rem;
 }
+
+.float-right {
+  float: right;
+}

@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { List } from 'semantic-ui-react';
+import PaginateMovieList from '../component/PaginateMovieList';
 import RemovableMovieItem from '../component/RemovableMovieItem';
 import { deleteMovieFromList, setToggleMovie } from '../redux/actions';
 
@@ -34,6 +35,7 @@ class UsersMovies extends React.Component {
     }
   }
 
+  doNothing = () => null;
   removeMovie = docId => this.props.dispatch(deleteMovieFromList(docId));
   toggleWatched = (docId, isWatched) => {
     const watched = isWatched ? true : false;
@@ -42,13 +44,10 @@ class UsersMovies extends React.Component {
 
   render() {
     const { list } = this.props.movieList;
-
-    if (list.length <= 0) {
-      return null;
-    }
+    if (list.length <= 0) return null;
 
     return (
-      <List divided relaxed>
+      <PaginateMovieList totalResults={list.length} onNext={this.doNothing}>
         {list.map(movie => (
           <RemovableMovieItem
             key={movie.docId}
@@ -59,7 +58,7 @@ class UsersMovies extends React.Component {
             onMovieRemove={() => this.removeMovie(movie.docId)}
           />
         ))}
-      </List>
+      </PaginateMovieList>
     );
   }
 } // UsersMovies

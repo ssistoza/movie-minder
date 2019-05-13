@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 /**
- * Returns number of MovieItem Components based on activePage.
+ * Returns number of movies based of perPage.
  *
  * @class      PaginateMovieItems (name)
  */
