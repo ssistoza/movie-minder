@@ -2,7 +2,6 @@ import {
   REQUEST_MOVIES,
   RECEIVE_MOVIES,
   SET_MOVIES_VISIBILITY,
-  SET_PAGINATION_PAGE,
   HIDE_MOVIES_INLIST,
 } from '../actions';
 import { movieVisibility } from './Filter';
@@ -11,7 +10,6 @@ import { updateObject } from '../../helper';
 const INITIAL_STATE = {
   isFetching: true,
   apiPage: 1,
-  paginationPage: 1,
   movies: [],
 };
 
@@ -28,6 +26,7 @@ function receivedMovies(state, action) {
     movies: [...state.movies, ...arrayOfData],
     apiPage: action.data.page,
     totalPage: action.data.total_pages,
+    totalResults: action.data.total_results,
   });
 }
 
@@ -45,8 +44,6 @@ export const allMovies = (state = INITIAL_STATE, action) => {
         movieVisibility: action.movieVisibility,
       });
     }
-    case SET_PAGINATION_PAGE:
-      return updateObject(state, { paginationPage: action.data });
     case HIDE_MOVIES_INLIST: {
       let movies = state.movies.map(i =>
         action.data.includes(i.id)

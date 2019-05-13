@@ -26,13 +26,8 @@ const hideMoviesInList = movieIds => ({
 });
 
 // Thunk
-export const hideMovies = type => (dispatch, getState) => {
+export const hideMovies = () => (dispatch, getState) => {
   const movieIds = getState().movieList.list.map(movie => movie.id);
   dispatch(hideMoviesInList(movieIds));
 };
 
-export const SET_PAGINATION_PAGE = 'SET_PAGINATION_PAGE';
-export const setPaginationPage = page => ({
-  type: SET_PAGINATION_PAGE,
-  data: page,
-});

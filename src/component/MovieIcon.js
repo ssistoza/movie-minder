@@ -14,7 +14,7 @@ const MovieIcon = ({ poster_path }) => (
 );
 
 MovieIcon.propTypes = {
-  poster_path: PropTypes.string.isRequired,
+  poster_path: PropTypes.string,
 };
 
 export default MovieIcon;

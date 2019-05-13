@@ -15,14 +15,15 @@ class Movies extends React.Component {
     this.props.onLoad(this.props.allMovies.isFetching);
   }
 
-  getMoreMovies = () => {
+  getMoreMovies = async () => {
     const {
-      actions: { fetchMovies },
+      actions: { fetchMovies, hideMovies },
       allMovies: { apiPage, totalPage },
     } = this.props;
 
     if (apiPage < totalPage) {
-      fetchMovies(apiPage + 1);
+      await fetchMovies(apiPage + 1);
+      hideMovies();
     }
   };
 
@@ -39,11 +40,7 @@ class Movies extends React.Component {
     }
 
     return (
-      <PaginateMovieList
-        onPageChange={setPaginationPage}
-        next={this.getMoreMovies}
-        paginationPage={paginationPage}
-      >
+      <PaginateMovieList onNext={this.getMoreMovies}>
         {/* Replace with list for unpaginated version.*/}
         {movies.map(movie => (
           <AddibleMovieItem

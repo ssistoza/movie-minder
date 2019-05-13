@@ -10,12 +10,13 @@ class PaginationButtons extends React.Component {
   };
 
   handleNextClick = e => {
-    this.setState(prevState => ({
-      disableNext: !prevState.disableNext,
-      loadingNext: !prevState.loadingNext,
-    }));
-
-    this.props.onNextClick();
+    this.setState(
+      prevState => ({
+        disableNext: !prevState.disableNext,
+        loadingNext: !prevState.loadingNext,
+      }),
+      () => this.props.onNextClick()
+    );
 
     this.setState(prevState => ({
       disableNext: !prevState.disableNext,
