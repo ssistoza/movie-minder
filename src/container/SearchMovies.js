@@ -7,11 +7,27 @@ import * as AllActionCreators from '../redux/actions';
 
 class SearchMovies extends React.Component {
   componentDidMount() {
-    this.props.onLoad(this.props.movieResults.isSearching);
+    const { movieResults, onLoad, showPlaceholder } = this.props;
+    onLoad(movieResults.isSearching);
+
+    // No results.
+    if (movieResults.movies.length <= 0) {
+      showPlaceholder(true);
+    } else {
+      showPlaceholder(false);
+    }
   }
 
-  componentDidUpdate(prevProps) {
-    this.props.onLoad(this.props.movieResults.isSearching);
+  componentDidUpdate() {
+    const { movieResults, onLoad, showPlaceholder } = this.props;
+    onLoad(movieResults.isSearching);
+
+    // No results.
+    if (movieResults.movies.length <= 0) {
+      showPlaceholder(true);
+    } else {
+      showPlaceholder(false);
+    }
   }
 
   addMovie = movie => this.props.actions.addMovieToList(movie);
@@ -28,7 +44,7 @@ class SearchMovies extends React.Component {
 
   render() {
     const { searchText, movies } = this.props.movieResults;
-    if (movies.length <= 0) return <p>testing...</p>;
+    if (movies.length <= 0) return null;
 
     return (
       <List>

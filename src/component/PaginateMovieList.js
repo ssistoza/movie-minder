@@ -1,5 +1,6 @@
 import React from 'react';
 import { List } from 'semantic-ui-react';
+import PropTypes from 'prop-types';
 import PaginateMovieItems from './PaginateMovieItems';
 import PaginationButtons from './PaginationButtons';
 
@@ -15,17 +16,17 @@ class PaginateMovieList extends React.Component {
 
   componentDidMount() {
     // If there are only 2 pages. Fetch more.
-    const { paginationPage, fetchMovies } = this.props;
+    const { paginationPage, next } = this.props;
     let currentPage = paginationPage;
     let totalPages = this.totalPages();
 
     if (currentPage === totalPages - 1) {
-      fetchMovies();
+      next();
     }
   }
 
   handleNextPage = () => {
-    const { onPageChange, paginationPage, fetchMovies } = this.props;
+    const { onPageChange, paginationPage, next } = this.props;
     let currentPage = paginationPage;
     let totalPages = this.totalPages();
 
@@ -33,7 +34,7 @@ class PaginateMovieList extends React.Component {
       onPageChange(currentPage + 1);
       if (currentPage + 1 === totalPages - 1) {
         // Start a new fetch if it is the beginning of the last page.
-        fetchMovies();
+        next();
       }
     }
   };
@@ -46,7 +47,6 @@ class PaginateMovieList extends React.Component {
   };
 
   totalPages = () => Math.ceil(this.props.children.length / this.state.perPage);
-
   render() {
     const { children, paginationPage } = this.props;
 
@@ -67,5 +67,11 @@ class PaginateMovieList extends React.Component {
     );
   }
 } // PaginateMovieList
+
+PaginateMovieList.propTypes = {
+  next: PropTypes.func.isRequired,
+  children: PropTypes.node.isRequired,
+  paginationPage: PropTypes.number.isRequired,
+};
 
 export default PaginateMovieList;

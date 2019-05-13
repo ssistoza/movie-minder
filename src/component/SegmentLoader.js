@@ -19,15 +19,22 @@ class SegmentLoader extends React.Component {
     children: PropTypes.element,
   };
 
-  setLoader = i => {
-    this.setState({ loading: i, placeholder: i });
+  setPlaceholder = result => {
+    this.setState({ placeholder: result });
+  };
+
+  setLoader = result => {
+    this.setState({ loading: result, placeholder: result });
   };
 
   render() {
     if (this.props.children) {
       return (
         <Segment {...this.state}>
-          {React.cloneElement(this.props.children, { onLoad: this.setLoader })}
+          {React.cloneElement(this.props.children, {
+            onLoad: this.setLoader,
+            showPlaceholder: this.setPlaceholder,
+          })}
         </Segment>
       );
     } else {

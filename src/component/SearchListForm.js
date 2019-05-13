@@ -12,13 +12,14 @@ class SearchListForm extends React.Component {
 
   toggle = (evt, data) => {
     const { name, checked } = data;
-    this.setState({ [name]: checked }, () => {
-      this.props.onSearch({ ...this.state });
-    });
+    this.setState({ [name]: checked }, () =>
+      this.props.onSearch({ ...this.state })
+    );
   };
 
   handleChanges = (evt, data) => {
-    this.setState({ ...data }, () => {
+    const { name, value } = data;
+    this.setState({ [name]: value }, () => {
       this.props.onSearch(this.state);
     });
   };
@@ -36,7 +37,7 @@ class SearchListForm extends React.Component {
             label="Past"
             value="SHOW_PAST"
             checked={movieFilter === 'SHOW_PAST'}
-            onChange={this.handleChange}
+            onChange={this.handleChanges}
           />
           <Form.Field
             control={Radio}
@@ -44,7 +45,7 @@ class SearchListForm extends React.Component {
             label="Upcoming"
             value="SHOW_UPCOMING"
             checked={movieFilter === 'SHOW_UPCOMING'}
-            onChange={this.handleChange}
+            onChange={this.handleChanges}
           />
           <Form.Field
             control={Radio}
@@ -52,7 +53,7 @@ class SearchListForm extends React.Component {
             label="All"
             value="SHOW_ALL"
             checked={movieFilter === 'SHOW_ALL'}
-            onChange={this.handleChange}
+            onChange={this.handleChanges}
           />
         </Form.Group>
         <Form.Group inline>

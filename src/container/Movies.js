@@ -41,7 +41,7 @@ class Movies extends React.Component {
     return (
       <PaginateMovieList
         onPageChange={setPaginationPage}
-        fetchMovies={this.getMoreMovies}
+        next={this.getMoreMovies}
         paginationPage={paginationPage}
       >
         {/* Replace with list for unpaginated version.*/}

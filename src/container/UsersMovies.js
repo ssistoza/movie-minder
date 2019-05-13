@@ -11,11 +11,27 @@ import { deleteMovieFromList, setToggleMovie } from '../redux/actions';
  */
 class UsersMovies extends React.Component {
   componentDidMount() {
-    this.props.onLoad(this.props.movieList.isFetching);
+    const { onLoad, movieList, showPlaceholder } = this.props;
+    onLoad(movieList.isFetching);
+
+    // No results.
+    if (movieList.length <= 0) {
+      showPlaceholder(true);
+    } else {
+      showPlaceholder(false);
+    }
   }
 
   componentDidUpdate() {
-    this.props.onLoad(this.props.movieList.isFetching);
+    const { onLoad, movieList, showPlaceholder } = this.props;
+    onLoad(movieList.isFetching);
+
+    // No results.
+    if (movieList.length <= 0) {
+      showPlaceholder(true);
+    } else {
+      showPlaceholder(false);
+    }
   }
 
   removeMovie = docId => this.props.dispatch(deleteMovieFromList(docId));
@@ -26,6 +42,10 @@ class UsersMovies extends React.Component {
 
   render() {
     const { list } = this.props.movieList;
+
+    if (list.length <= 0) {
+      return null;
+    }
 
     return (
       <List divided relaxed>
