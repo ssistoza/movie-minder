@@ -1,5 +1,6 @@
 export const SEARCH_MOVIES = 'SEARCH_MOVIES';
 export const SEARCH_SUCCESS = 'SEARCH_SUCCESS';
+export const HIDE_MOVIES_AFTER_SEARCH = 'HIDE_MOVIES_AFTER_SEARCH';
 
 const searchMovies = text => ({ type: SEARCH_MOVIES, data: text });
 export const searchSuccess = (results, toHide) => ({

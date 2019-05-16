@@ -17,6 +17,7 @@ export const movieResults = (state = INITIAL_STATE, action) => {
         movies: [...action.data.results],
         apiPage: action.data.page,
         totalPage: action.data.total_pages,
+        totalResults: action.data.total_results,
         lastUpdated: action.received,
       });
     default:

@@ -10,25 +10,23 @@ class SearchMovies extends React.Component {
     const { movieResults, onLoad, showPlaceholder } = this.props;
     onLoad(movieResults.isSearching);
 
-    // No results.
     if (movieResults.movies.length <= 0) {
       showPlaceholder(true);
     } else {
       showPlaceholder(false);
     }
-  }
+  } // cDM
 
   componentDidUpdate() {
     const { movieResults, onLoad, showPlaceholder } = this.props;
     onLoad(movieResults.isSearching);
 
-    // No results.
     if (movieResults.movies.length <= 0) {
       showPlaceholder(true);
     } else {
       showPlaceholder(false);
     }
-  }
+  } // cDU
 
   addMovie = movie => this.props.actions.addMovieToList(movie);
   getMoreMovies = () => {
@@ -48,7 +46,6 @@ class SearchMovies extends React.Component {
 
     return (
       <List>
-        {/* Replace with list for unpaginated version.*/}
         {movies.map(movie => (
           <AddibleMovieItem
             key={movie.id}

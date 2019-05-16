@@ -49,7 +49,7 @@ export const allMovies = (state = INITIAL_STATE, action) => {
         action.data.includes(i.id)
           ? updateObject(i, { isHidden: true })
           : updateObject(i, { isHidden: false })
-      ); // Regardless HIDE any movies part of the list.
+      );
       return updateObject(state, { movies });
     }
     default:
