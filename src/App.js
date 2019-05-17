@@ -8,7 +8,6 @@ import PrivateRoute from './component/PrivateRoute';
 
 // Pages
 import Signin from './pages/signin';
-import Signup from './pages/signup';
 import Signout from './pages/signout';
 import Home from './pages/home';
 import List from './pages/list';
@@ -59,7 +58,6 @@ class App extends React.Component {
               component={Movies}
               auth={this.isAuthenticated()}
             />
-            <Route exact path="/signup" component={Signup} />
             <Route
               path="/"
               render={() => (

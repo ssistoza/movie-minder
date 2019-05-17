@@ -12,15 +12,13 @@ describe('App', () => {
   beforeEach(() => {
     store = configureStore();
     wrapper = shallow(
-      <FirebaseContext.Provider value={Firebase}>
-        <Provider store={store}>
-          <App />
-        </Provider>
-      </FirebaseContext.Provider>
+      <Provider store={store}>
+        <App />
+      </Provider>
     );
   });
 
   it('should not crash', () => {
-    shallow(<App />);
+    wrapper.contains(<App />);
   });
 });

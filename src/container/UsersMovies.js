@@ -35,7 +35,6 @@ class UsersMovies extends React.Component {
     }
   }
 
-  doNothing = () => null;
   removeMovie = docId => this.props.dispatch(deleteMovieFromList(docId));
   toggleWatched = (docId, isWatched) => {
     const watched = isWatched ? true : false;
@@ -47,7 +46,7 @@ class UsersMovies extends React.Component {
     if (list.length <= 0) return null;
 
     return (
-      <PaginateMovieList totalResults={list.length} onNext={this.doNothing}>
+      <PaginateMovieList totalResults={list.length}>
         {list.map(movie => (
           <RemovableMovieItem
             key={movie.docId}

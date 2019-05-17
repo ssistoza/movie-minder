@@ -22,7 +22,7 @@ class PaginateMovieList extends React.Component {
     let totalPages = this.totalPages();
 
     if (paginationPage === totalPages - 1) {
-      onNext();
+      if (onNext) onNext();
     }
   }
 
@@ -37,7 +37,7 @@ class PaginateMovieList extends React.Component {
         prev => ({ paginationPage: prev.paginationPage + 1 }),
         () => {
           if (paginationPage + 1 === totalPages - 1) {
-            onNext();
+            if (onNext) onNext();
           }
         }
       );
@@ -77,7 +77,7 @@ class PaginateMovieList extends React.Component {
 } // PaginateMovieList
 
 PaginateMovieList.propTypes = {
-  onNext: PropTypes.func.isRequired,
+  onNext: PropTypes.func,
   children: PropTypes.node.isRequired,
   totalResults: PropTypes.number.isRequired,
 };
