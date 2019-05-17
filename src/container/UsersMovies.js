@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { List } from 'semantic-ui-react';
 import PaginateMovieList from '../component/PaginateMovieList';
 import RemovableMovieItem from '../component/RemovableMovieItem';
 import { deleteMovieFromList, setToggleMovie } from '../redux/actions';

@@ -45,7 +45,6 @@ class PaginateMovieList extends React.Component {
   };
 
   handlePreviousPage = () => {
-    const { onPageChange } = this.props;
     const { paginationPage } = this.state;
 
     if (paginationPage > 1) {

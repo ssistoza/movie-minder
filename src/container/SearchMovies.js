@@ -31,7 +31,7 @@ class SearchMovies extends React.Component {
   addMovie = movie => this.props.actions.addMovieToList(movie);
   getMoreMovies = () => {
     const {
-      actions: { fetchMovies },
+      // actions: { fetchMovies },
       movieResults: { apiPage, totalPage },
     } = this.props;
 
@@ -41,7 +41,7 @@ class SearchMovies extends React.Component {
   };
 
   render() {
-    const { searchText, movies } = this.props.movieResults;
+    const { movies } = this.props.movieResults;
     if (movies.length <= 0) return null;
 
     return (
