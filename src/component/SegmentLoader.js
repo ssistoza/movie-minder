@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import { Segment } from 'semantic-ui-react';
 
 /**
+ * HigherOrderComponent exposing loading interface to children.
+ *
  * Class wrapper around SemanticUI's Segment.
  * - Will expose a onLoad prop down to child
  * - If children is empty it will place a temporary holder.

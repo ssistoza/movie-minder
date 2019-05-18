@@ -4,6 +4,7 @@ import {
   MoviesVisibilityFilter,
   setMovieVisibility,
   hideMovies,
+  hideMoviesAfterSearch,
 } from './index';
 
 /* Create in { CRUD } */
@@ -24,6 +25,9 @@ export const addMovieToList = newMovie => async (dispatch, getState) => {
   dispatch(addedToList(response.id));
 
   dispatch(hideMovies());
+  if (getState().movieResults.searchText) {
+    dispatch(hideMoviesAfterSearch());
+  }
 
   return response;
 };

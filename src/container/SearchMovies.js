@@ -61,8 +61,8 @@ class SearchMovies extends React.Component {
 function mapStateToProps(state) {
   let movieResults = state.movieResults;
   // Get only movies not in the list.
-  // const results = movieResults.results.filter(i => !i.isHidden);
-  // movieResults = Object.assign({}, movieResults, { results });
+  const movies = movieResults.movies.filter(i => !i.isHidden);
+  movieResults = Object.assign({}, movieResults, { movies });
   return { movieResults };
 }
 

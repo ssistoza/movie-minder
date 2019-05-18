@@ -12,7 +12,6 @@ class Firebase {
   }
 
   // *** Auth ***
-
   createUserWithEmailAndPassword = (email, password) => {
     this.auth.createUserWithEmailAndPassword(email, password);
   };

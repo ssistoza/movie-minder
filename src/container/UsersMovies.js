@@ -14,11 +14,8 @@ class UsersMovies extends React.Component {
     const { onLoad, movieList, showPlaceholder } = this.props;
     onLoad(movieList.isFetching);
 
-    // No results.
-    if (movieList.length <= 0) {
-      showPlaceholder(true);
-    } else {
-      showPlaceholder(false);
+    if (!movieList.isFetching) {
+      movieList.length <= 0 ? showPlaceholder(true) : showPlaceholder(false);
     }
   }
 
@@ -26,11 +23,8 @@ class UsersMovies extends React.Component {
     const { onLoad, movieList, showPlaceholder } = this.props;
     onLoad(movieList.isFetching);
 
-    // No results.
-    if (movieList.length <= 0) {
-      showPlaceholder(true);
-    } else {
-      showPlaceholder(false);
+    if (!movieList.isFetching) {
+      movieList.length <= 0 ? showPlaceholder(true) : showPlaceholder(false);
     }
   }
 
