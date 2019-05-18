@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Button } from 'semantic-ui-react';
-import { fetchSearchMovie } from '../redux/actions';
+import { fetchSearchMovie, clearSearch } from '../redux/actions';
 import SearchMovieForm from '../component/SearchMovieForm';
 
 class MovieSearchFormContainer extends React.Component {
@@ -9,8 +9,9 @@ class MovieSearchFormContainer extends React.Component {
     search: '',
   };
 
+  // Reset Search!
   componentWillUnmount() {
-    // this.props.dispatch(resetSearch());
+    this.props.dispatch(clearSearch());
   }
 
   search = (evt, { search }) => this.setState({ search });

@@ -1,5 +1,6 @@
 export const SEARCH_MOVIES = 'SEARCH_MOVIES';
 export const SEARCH_SUCCESS = 'SEARCH_SUCCESS';
+export const CLEAR_SEARCH = 'CLEAR_SEARCH';
 export const HIDE_MOVIES_AFTER_SEARCH = 'HIDE_MOVIES_AFTER_SEARCH';
 
 const searchMovies = text => ({ type: SEARCH_MOVIES, data: text });
@@ -9,28 +10,29 @@ export const searchSuccess = results => ({
   received: Date.now(),
 });
 
-export const fetchSearchMovie = text => async (dispatch, getState) => {
-  dispatch(searchMovies(text));
-  const url = `${process.env.REACT_APP_MOVIE_SEARCH}&query="${text}"`;
-  const response = await fetch(url);
-  const movieResults = await response.json();
+export const clearSearch = () => ({ type: CLEAR_SEARCH });
 
-  await dispatch(searchSuccess(movieResults));
-  dispatch(hideMoviesAfterSearch());
-};
+export const fetchSearchMovie = newSearch => async (dispatch, getState) => {
+  let text = getState().movieResults.searchText;
 
-export const fetchNextPage = page => async (dispatch, getState) => {
-  const text = getState().movieResults.searchText;
+  if (newSearch) {
+    await dispatch(clearSearch()); // should reset getState!
+    text = newSearch;
+  }
 
-  dispatch(searchMovies(text));
-  const url = `${
-    process.env.REACT_APP_MOVIE_SEARCH
-  }&query=${text}&page=${page}`;
-  const response = await fetch(url);
-  const movieResults = await response.json();
+  let page = getState().movieResults.apiPage;
+  if (page < getState().movieResults.totalPage || page === 0) {
+    // if any pages avail or the very first one.
+    page++;
+    dispatch(searchMovies(text));
+    const response = await fetch(
+      `${process.env.REACT_APP_MOVIE_SEARCH}&query=${text}&page=${page}`
+    );
+    const movieResults = await response.json();
 
-  await dispatch(searchSuccess(movieResults));
-  dispatch(hideMoviesAfterSearch());
+    await dispatch(searchSuccess(movieResults));
+    dispatch(hideMoviesAfterSearch());
+  }
 };
 
 const hideMoviesInList = movieIds => ({

@@ -21,7 +21,8 @@
 .activity-feed {
   position: fixed;
   bottom: 0;
-  height: 50%;
+  padding-bottom: 1em;
+  width: 100%;
 }
 
 .feed-format {

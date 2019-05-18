@@ -1,7 +1,7 @@
 import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { List } from 'semantic-ui-react';
+import PaginateMovieList from '../component/PaginateMovieList';
 import AddibleMovieItem from '../component/AddibleMovieItem';
 import * as AllActionCreators from '../redux/actions';
 
@@ -10,10 +10,10 @@ class SearchMovies extends React.Component {
     const { movieResults, onLoad, showPlaceholder } = this.props;
     onLoad(movieResults.isSearching);
 
-    if (movieResults.movies.length <= 0) {
-      showPlaceholder(true);
-    } else {
-      showPlaceholder(false);
+    if (!movieResults.isSearching) {
+      movieResults.movies.length <= 0
+        ? showPlaceholder(true)
+        : showPlaceholder(false);
     }
   } // cDM
 
@@ -21,31 +21,25 @@ class SearchMovies extends React.Component {
     const { movieResults, onLoad, showPlaceholder } = this.props;
     onLoad(movieResults.isSearching);
 
-    if (movieResults.movies.length <= 0) {
-      showPlaceholder(true);
-    } else {
-      showPlaceholder(false);
+    if (!movieResults.isSearching) {
+      movieResults.movies.length <= 0
+        ? showPlaceholder(true)
+        : showPlaceholder(false);
     }
   } // cDU
 
   addMovie = movie => this.props.actions.addMovieToList(movie);
-  getMoreMovies = () => {
-    const {
-      // actions: { fetchMovies },
-      movieResults: { apiPage, totalPage },
-    } = this.props;
-
-    if (apiPage < totalPage) {
-      // nextSearch(apiPage + 1);
-    }
-  };
+  getMoreMovies = () => this.props.actions.fetchSearchMovie();
 
   render() {
-    const { movies } = this.props.movieResults;
+    const { movies, totalResults } = this.props.movieResults;
     if (movies.length <= 0) return null;
 
     return (
-      <List>
+      <PaginateMovieList
+        totalResults={totalResults}
+        onNext={this.getMoreMovies}
+      >
         {movies.map(movie => (
           <AddibleMovieItem
             key={movie.id}
@@ -53,7 +47,7 @@ class SearchMovies extends React.Component {
             onMovieAdd={() => this.addMovie(movie)}
           />
         ))}
-      </List>
+      </PaginateMovieList>
     );
   }
 } // SearchMovies
