@@ -8,7 +8,7 @@ const loggerMiddleware = createLogger();
 
 export default function configureStore(preloadedState) {
   let middlewares =
-    process.env !== 'production'
+    process.env.NODE_ENV !== 'production'
       ? [thunkMiddleware, loggerMiddleware]
       : [thunkMiddleware];
 

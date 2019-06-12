@@ -19,7 +19,7 @@ class Signin extends React.Component {
       this.props.dispatch(init());
       history.push('/home');
     } else {
-      if (process.env !== 'production') {
+      if (process.env.NODE_ENV !== 'production') {
         this.props.dispatch(
           signinWithFirebase(
             process.env.REACT_APP_LOGIN_EMAIL,
