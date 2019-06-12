@@ -3,6 +3,7 @@ import {
   fetchMovies,
   resetListVisibility,
   hideMovies,
+  setWatchedVisibility,
 } from './index';
 
 export const init = () => async (dispatch, getState) => {
@@ -16,4 +17,7 @@ export const init = () => async (dispatch, getState) => {
 
   // 4. Reset Visibility of Movie List.
   await dispatch(resetListVisibility());
+
+  // 5. Hide movies watched.
+  await dispatch(setWatchedVisibility({ watched: false, notWatched: true }));
 };

@@ -99,20 +99,22 @@ export const movieList = (state = INITIAL_STATE, action) => {
     }
     case ADDED_TO_LIST: {
       // Update docId.
-      const list = state.list.filter(movie => movie.docId !== 'awaiting');
-      let item = state.list.find(movie => movie.docId === 'awaiting');
-      item = updateObject(item, { docId: action.data });
-      return updateObject(state, { list: [...list, item] });
+      const list = state.list.map(movie => {
+        if (movie.docId === 'awaiting') { return updateObject(movie, { docId: action.data }) }
+        return movie;
+      });
+
+      return updateObject(state, { list });
     }
     case SEARCH_LIST:
       return filterList(state, action);
     case TOGGLE_WATCHED: {
-      let list = state.list.filter(movie => movie.docId !== action.data.docId);
-      let item = state.list.find(movie => movie.docId === action.data.docId);
-      item = updateObject(item, { watched: action.data.watched });
-      list = list.concat(item);
-
-      return updateObject(state, { list: list });
+      const list = state.list.map( movie => {
+        if (movie.docId === action.data.docId) { return updateObject(movie, { watched: action.data.watched }) }
+        return movie;
+      })
+      
+      return updateObject(state, { list });
     }
     case SET_USERMOVIES_VISIBILITY: {
       let list = state.list;

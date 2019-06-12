@@ -3,8 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "axios": "^0.18.0",
     "cross-fetch": "^3.0.2",
-    "firebase": "^5.10.1",
+    "firebase": "^6.0.2",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-redux": "^7.0.2",
@@ -47,5 +48,9 @@
     "recompose": "^0.30.0",
     "redux-devtools-extension": "^2.13.8",
     "redux-logger": "^3.0.6"
+  },
+  "peerDependencies": {
+    "@firebase/app-types": "^0.4.0",
+    "@firebase/util": "^0.2.15"
   }
 }

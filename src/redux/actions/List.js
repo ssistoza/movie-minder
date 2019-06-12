@@ -13,23 +13,28 @@ export const ADDED_TO_LIST = 'ADDED_TO_LIST';
 export const NOT_ADDED_TO_LIST = 'NOT_ADDED_TO_LIST';
 const addToList = json => ({ type: ADD_TO_LIST, data: json });
 const addedToList = docId => ({ type: ADDED_TO_LIST, data: docId });
+const notAddedToList = () => ({ type: NOT_ADDED_TO_LIST });
 
 // Thunk
 export const addMovieToList = newMovie => async (dispatch, getState) => {
-  dispatch(addToList(newMovie));
+  try {
+    dispatch(addToList(newMovie));
 
-  const response = await Firebase.db
-    .collection('movie-list')
-    .add({ ...newMovie });
+    const response = await Firebase.db
+      .collection('movie-list')
+      .add({ ...newMovie });
 
-  dispatch(addedToList(response.id));
+    dispatch(addedToList(response.id));
 
-  dispatch(hideMovies());
-  if (getState().movieResults.searchText) {
-    dispatch(hideMoviesAfterSearch());
+    dispatch(hideMovies());
+    if (getState().movieResults.searchText) {
+      dispatch(hideMoviesAfterSearch());
+    }
+
+    return response;
+  } catch (error) {
+    dispatch(notAddedToList());
   }
-
-  return response;
 };
 
 /* Retrieve in { CRUD } */
@@ -46,7 +51,6 @@ const receiveList = json => ({
 // Thunk.
 export const fetchList = () => async (dispatch, getState) => {
   if (!getState().movieList.isFetching) {
-    // Already fetched!
     return Promise.resolve();
   }
   dispatch(requestList());
@@ -98,7 +102,7 @@ export const WatchedVisibilityFilter = {
   SHOW_UNWATCHED: 'SHOW_UNWATCHED',
 };
 
-const setWatchedVisibility = ({ watched, notWatched }) => {
+export const setWatchedVisibility = ({ watched, notWatched }) => {
   let watchedVisibility = WatchedVisibilityFilter.SHOW_ALL;
   if (!watched && notWatched) {
     watchedVisibility = WatchedVisibilityFilter.SHOW_UNWATCHED;
